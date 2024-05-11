@@ -11,5 +11,6 @@ public class OrderRequest {
     private String productType;
     private String songName;
     private String artistName;
-    private boolean customPhotoUploaded;
+    private String songUrl;
+    private String customDetails;
 }
