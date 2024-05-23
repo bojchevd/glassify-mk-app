@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class PosterOrderRequest extends OrderRequest{
+public class PosterOrderRequest extends GlassOrderRequest {
     private boolean framed;
     private String frameColor;
 }

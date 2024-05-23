@@ -1,7 +1,7 @@
 package com.example.glassify.web;
 
-import com.example.glassify.model.CustomPhotoOrderRequest;
-import com.example.glassify.model.OrderRequest;
+import com.example.glassify.model.CustomPhotoGlassOrderRequest;
+import com.example.glassify.model.GlassOrderRequest;
 import com.example.glassify.model.PosterOrderRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,18 +13,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
 
     @PostMapping("/generic")
-    public void createGenericOrder(@RequestBody OrderRequest orderRequest) {
+    public void createGenericOrder(@RequestBody GlassOrderRequest glassOrderRequest) {
         // Handle generic order request (fallback)
         // You can add logic to handle common order attributes
         System.out.println("Received generic order request");
     }
 
     @PostMapping("/customPhotoOrder")
-    public void createCustomPhotoOrder(@RequestBody CustomPhotoOrderRequest orderRequest) {
+    public void createCustomPhotoOrder(@RequestBody CustomPhotoGlassOrderRequest orderRequest) {
         // Handle custom photo order request
         // Access additional parameter specific to CustomPhotoOrderRequest
         System.out.println("Received custom photo order request");
-        System.out.println("Photo file name: " + orderRequest.getPhotoFile().getOriginalFilename());
+        System.out.println("Photo file url: " + orderRequest.getPhotoFile().getOriginalFilename());
     }
 
     @PostMapping("/posterOrder")

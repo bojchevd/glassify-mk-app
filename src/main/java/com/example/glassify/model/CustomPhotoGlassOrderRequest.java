@@ -6,6 +6,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CustomPhotoOrderRequest extends OrderRequest {
+public class CustomPhotoGlassOrderRequest extends GlassOrderRequest {
     private MultipartFile photoFile;
 }

@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderRequest {
-    private String productType;
+public class GlassOrderRequest {
+    private String productName;
     private String songName;
     private String artistName;
     private String songUrl;
