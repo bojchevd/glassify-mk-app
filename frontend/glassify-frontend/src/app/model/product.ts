@@ -1,8 +1,9 @@
-import { ProductVariant } from "./product-variant";
-
 export class Product {
     id: number = 0;
     name: string = "";
     description: string = "";
-    variants: ProductVariant[] = [];
+    imageUrl: string = "";
+    salesPrice: number = 0;
+    cost: number = 0;
+    quantity: number = 0;
 }
