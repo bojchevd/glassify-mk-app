@@ -1,4 +1,5 @@
-<div *ngFor="let product of products">
+<div class="grid ">
+  <div *ngFor="let product of products">
   
     <mat-card class="product-card">
   
@@ -6,7 +7,7 @@
         <mat-card-title>{{product.name}}</mat-card-title>
       </mat-card-header>
   
-      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="This will be custom url">
+      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg">
   
       <mat-card-content>
         <p>{{product.description}}</p>
@@ -22,3 +23,5 @@
     </mat-card>
   
   </div>
+</div>
+
