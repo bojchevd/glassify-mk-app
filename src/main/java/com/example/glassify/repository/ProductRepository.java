@@ -11,10 +11,16 @@ import java.util.List;
 public class ProductRepository {
 
     public List<Product> getAllProducts(){
+
         return new ArrayList<>();
     }
 
     public Product getProductById(Long id) {
+
+        return new Product();
+    }
+
+    public Product getProductByName(String name) {
         return new Product();
     }
 }

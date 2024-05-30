@@ -1,5 +1,6 @@
 package com.example.glassify.service;
 
+import com.example.glassify.model.OrderRequest;
 import com.example.glassify.model.Product;
 import com.example.glassify.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,8 @@ public class ProductService {
 
     public Product getProductById(Long id) {
         return productRepository.getProductById(id);
+    }
+    public Product getProductByName(String name) {
+        return productRepository.getProductByName(name);
     }
 }

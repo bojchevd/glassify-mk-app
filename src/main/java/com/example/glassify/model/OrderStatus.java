@@ -1,7 +1,7 @@
 package com.example.glassify.model;
 
 public enum OrderStatus {
-    RECEIVED,
+    NEW,
     CONFIRMED,
     SHIPPED
 }
