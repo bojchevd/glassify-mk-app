@@ -11,10 +11,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { ProductModule } from './product/product.module';
+import { ProductViewDetailsComponent } from './product-view-details/product-view-details.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
+
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ProductViewDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +34,12 @@ import { ProductModule } from './product/product.module';
     BrowserAnimationsModule,
     MatCardModule,
     MatDividerModule,
-    ProductModule
+    ProductModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

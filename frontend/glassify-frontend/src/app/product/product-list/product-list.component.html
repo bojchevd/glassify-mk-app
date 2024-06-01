@@ -17,7 +17,7 @@
       <mat-divider></mat-divider>
       
       <mat-card-actions>
-        <button mat-button>CUSTOMIZE {{product.name}}</button>
+        <button mat-raised-button color="primary" (click)="showProductDetails(product.id)">CUSTOMIZE {{product.name}}</button>
       
       </mat-card-actions>
     </mat-card>

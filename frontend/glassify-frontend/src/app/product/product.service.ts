@@ -17,4 +17,8 @@ export class ProductService {
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.mockApi + "/products")
   }
+
+  getProductDetailsById(id: String): Observable<Product> {
+    return this.http.get<Product>(this.mockApi + "/productDetails/" + id)
+  }
 }
