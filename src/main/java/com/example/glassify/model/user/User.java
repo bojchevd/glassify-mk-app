@@ -1,9 +1,7 @@
-package com.example.glassify.model;
+package com.example.glassify.model.user;
 
+import com.example.glassify.model.user.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "users")

@@ -1,13 +1,7 @@
 package com.example.glassify.repository;
 
 import com.example.glassify.model.Order;
-import com.example.glassify.model.OrderRequest;
-import org.springframework.stereotype.Component;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Component
-public class OrderRepository {
-
-    public void save(Order order) {
-
-    }
+public interface OrderRepository extends JpaRepository<Order, Long> {
 }

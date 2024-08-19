@@ -1,26 +1,7 @@
 package com.example.glassify.repository;
 
 import com.example.glassify.model.Product;
-import org.springframework.security.core.parameters.P;
-import org.springframework.stereotype.Component;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@Component
-public class ProductRepository {
-
-    public List<Product> getAllProducts(){
-
-        return new ArrayList<>();
-    }
-
-    public Product getProductById(Long id) {
-
-        return new Product();
-    }
-
-    public Product getProductByName(String name) {
-        return new Product();
-    }
+public interface ProductRepository extends JpaRepository<Product, Long> {
 }

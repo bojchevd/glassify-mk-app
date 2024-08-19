@@ -1,4 +1,4 @@
-package com.example.glassify.model;
+package com.example.glassify.model.enums;
 
 public enum OrderStatus {
     NEW,
