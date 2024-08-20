@@ -16,7 +16,6 @@ export class ProductViewDetailsComponent implements OnInit {
     productName: "",
     songName: "",
     artistName: "",
-    songUrl: "",
     customDetails: "",
     albumName: "",
     frameColor: "",

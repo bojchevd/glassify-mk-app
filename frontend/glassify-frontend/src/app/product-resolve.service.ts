@@ -16,26 +16,20 @@ export class ProductResolveService implements Resolve<Product> {
     state: RouterStateSnapshot): Observable<Product> {
       const id = route.paramMap.get("id");
 
-      if(id) {
-        // fetch details from backend
-        return this.productService.getProductDetailsById(id)
+      if (id) {
+        return this.productService.getProductDetailsById(Number(id));
       } else {
-        // return empty product Observable
-        return of(this.getProductDetails());
+        return of(this.getDefaultProduct());
       }
   }
-  getProductDetails() {
+
+  getDefaultProduct(): Product {
     return {
       id: 0,
       name: "",
       description: "",
       imageUrl: "",
-      salesPrice: 0,
-      cost: 0,
-      quantity: 0,
-    }
+      basePrice: 0
+    };
   }
-  
-
 }
-
