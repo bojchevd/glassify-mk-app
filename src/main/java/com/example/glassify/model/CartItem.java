@@ -2,7 +2,6 @@ package com.example.glassify.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
 
 @Entity
 @Table(name = "CartItems")
@@ -38,5 +37,4 @@ public class CartItem {
 
     @Column(name = "frameColor")
     private String frameColor;
-
 }

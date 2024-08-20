@@ -16,6 +16,11 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @GetMapping("/")
+    public String home() {
+        return "Welcome to Glassify Products!";
+    }
+
     @GetMapping("/all")
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> products = productService.getAllProducts();

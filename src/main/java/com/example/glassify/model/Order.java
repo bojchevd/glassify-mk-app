@@ -19,10 +19,10 @@ public class Order {
     @Column(name = "fullName", nullable = false)
     private String fullName;
 
-    @Column(name = "phoneNumber")
+    @Column(name = "phoneNumber", nullable = false)
     private String phoneNumber;
 
-    @Column(name = "city")
+    @Column(name = "city", nullable = false)
     private String city;
 
     @Column(name = "address", nullable = false)

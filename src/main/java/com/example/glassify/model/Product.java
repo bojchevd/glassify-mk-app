@@ -18,6 +18,9 @@ public class Product {
     @Column(name = "basePrice", nullable = false)
     private Integer basePrice;
 
+    @Column(name = "imageUrl")
+    private String imageUrl;
+
     @Column(name = "description")
     private String description;
 
