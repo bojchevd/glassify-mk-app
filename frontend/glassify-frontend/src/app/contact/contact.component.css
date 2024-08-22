@@ -1,0 +1,7 @@
+/* You can add custom styles here if needed */
+mat-card {
+    max-width: 600px;
+    margin: auto;
+    padding: 16px;
+  }
+  

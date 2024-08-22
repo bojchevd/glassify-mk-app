@@ -1,27 +1,18 @@
-<div class="grid ">
-  <div *ngFor="let product of products">
-  
-    <mat-card class="product-card">
-  
-      <mat-card-header>
-        <mat-card-title>{{product.name}}</mat-card-title>
-      </mat-card-header>
-  
-      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg">
-  
-      <mat-card-content>
-        <p>{{product.description}}</p>
-        <mat-card-subtitle>{{product.basePrice | currency: 'MKD'}}</mat-card-subtitle>
-      </mat-card-content>
-  
-      <mat-divider></mat-divider>
-      
-      <mat-card-actions>
-        <button mat-raised-button color="primary" (click)="showProductDetails(product.id)">CUSTOMIZE {{product.name}}</button>
-      
-      </mat-card-actions>
-    </mat-card>
-  
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let product of products">
+      <div class="card">
+        <img 
+          [src]="getImageUrl(product.imageUrl)" 
+          class="card-img-top" 
+          alt="{{ product.name }}">
+        <div class="card-body">
+          <h5 class="card-title">{{product.name}}</h5>
+          <p class="card-text">{{product.description}}</p>
+          <p class="card-text">{{product.basePrice | currency: 'MKD'}}</p>
+          <a href="#" class="btn btn-primary" (click)="showProductDetails(product.id)">CUSTOMIZE {{product.name}}</a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-

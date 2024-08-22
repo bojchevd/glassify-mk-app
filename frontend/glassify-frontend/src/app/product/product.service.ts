@@ -8,8 +8,8 @@ import { Product } from '../model/product';
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = environment.springUrl; // todo : change
-
+  private apiUrl = environment.springUrl; 
+  
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<Product[]> {

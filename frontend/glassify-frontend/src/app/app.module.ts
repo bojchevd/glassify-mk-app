@@ -8,22 +8,20 @@ import { HomeModule } from './home/home.module';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatCardModule } from '@angular/material/card';
-import { MatDividerModule } from '@angular/material/divider';
 import { ProductModule } from './product/product.module';
 import { ProductViewDetailsComponent } from './product-view-details/product-view-details.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { FormsModule } from '@angular/forms';
+import { SharedModule } from './shared/shared.module';
+import { ContactComponent } from './contact/contact.component';
+import { LayoutModule } from './layout/layout.module';
+
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductViewDetailsComponent
+    ProductViewDetailsComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
@@ -32,14 +30,9 @@ import { FormsModule } from '@angular/forms';
     HomeModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatCardModule,
-    MatDividerModule,
+    SharedModule,
     ProductModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule,
-    FormsModule
+    LayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]

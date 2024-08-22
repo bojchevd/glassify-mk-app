@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { ProductListComponent } from './product/product-list/product-list.component';
 import { ProductViewDetailsComponent } from './product-view-details/product-view-details.component';
 import { ProductResolveService } from './product-resolve.service';
-
+import { LandingPageComponent } from './home/landing-page/landing-page.component';
+import { ContactComponent } from './contact/contact.component';
+import { ProductPageComponent } from './product-page/product-page.component';
 
 const routes: Routes = [
-  // Define your routes here
-  { path: 'products', component: ProductListComponent },
-  { path: 'productViewDetails', component: ProductViewDetailsComponent, resolve: {product: ProductResolveService}}
+  { path: '', component: LandingPageComponent },
+  { path: 'products', component: ProductPageComponent },
+  { path: 'productViewDetails/:id', component: ProductViewDetailsComponent, resolve: { product: ProductResolveService } },
+  { path: 'contact', component: ContactComponent }
 ];
 
 
@@ -18,7 +20,8 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes),
     CommonModule,
-    RouterModule
+    RouterModule,
+    LandingPageComponent
   ],
   exports: [
     RouterModule

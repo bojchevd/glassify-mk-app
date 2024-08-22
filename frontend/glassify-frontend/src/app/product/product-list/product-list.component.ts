@@ -23,8 +23,13 @@ export class ProductListComponent implements OnInit {
     })
   }
 
-  showProductDetails(id: number) {
-    this.router.navigate(["/productViewDetails", {id: id}])
+  getImageUrl(imageUrl: string | null): string {
+    return imageUrl ? `assets/${imageUrl}` : 'assets/default-image.jpg';
   }
+
+  showProductDetails(id: number) {
+    this.router.navigate(['/productViewDetails', id]);
+  }
+  
 
 }

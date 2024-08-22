@@ -2,6 +2,8 @@ package com.example.glassify.web;
 
 import com.example.glassify.model.Product;
 import com.example.glassify.service.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,9 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    private static final Logger log = LoggerFactory.getLogger(ProductController.class);
+
+
     @GetMapping("/")
     public String home() {
         return "Welcome to Glassify Products!";
@@ -23,14 +28,18 @@ public class ProductController {
 
     @GetMapping("/all")
     public ResponseEntity<List<Product>> getAllProducts() {
+        log.info("in getAllProducts");
         List<Product> products = productService.getAllProducts();
+        log.info(products.toString());
         return ResponseEntity.ok(products);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) {
         try {
+            log.info("in getProductById");
             Product product = productService.getProductById(id);
+            log.info(product.toString());
             return ResponseEntity.ok(product);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);

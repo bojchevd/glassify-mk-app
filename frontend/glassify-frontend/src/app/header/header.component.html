@@ -1,1 +1,11 @@
-<p>header works!</p>
+<mat-toolbar class="bg-custom d-flex justify-content-between align-items-center">
+  <span class="navbar-brand">
+    <mat-icon>store</mat-icon>
+    Glassify
+  </span>
+  <div>
+    <button mat-button [routerLink]="['/']" class="btn btn-outline-light">Home</button>
+    <button mat-button [routerLink]="['/products']" class="btn btn-outline-light">Products</button>
+    <button mat-button [routerLink]="['/contact']" class="btn btn-outline-light">Contact</button>
+  </div>
+</mat-toolbar>
