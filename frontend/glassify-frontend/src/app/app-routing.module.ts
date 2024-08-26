@@ -10,7 +10,7 @@ import { ProductPageComponent } from './product-page/product-page.component';
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'products', component: ProductPageComponent },
-  { path: 'productViewDetails/:id', component: ProductViewDetailsComponent, resolve: { product: ProductResolveService } },
+  { path: 'productViewDetails/:id', component: ProductViewDetailsComponent },
   { path: 'contact', component: ContactComponent }
 ];
 

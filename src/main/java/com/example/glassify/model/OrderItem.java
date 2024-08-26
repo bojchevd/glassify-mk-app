@@ -32,15 +32,9 @@ public class OrderItem {
     @Column(name = "frameColor")
     private String frameColor;
 
-    @Column(name = "templateType")
-    private String templateType;
-
     @Column(name = "songName")
     private String songName;
 
     @Column(name = "artistName")
     private String artistName;
-
-    @Column(name = "posterName")
-    private String posterName;
 }

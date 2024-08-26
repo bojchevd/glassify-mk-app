@@ -31,13 +31,9 @@ public class CartService {
     }
 
     public CartItem addItemToCart(Long cartId, CartItem cartItem) {
-        // Check if the cart exists
+
         Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new RuntimeException("Cart not found"));
-
-        // Set cart reference to cartItem
         cartItem.setCart(cart);
-
-        // Save and return the cart item
         return cartItemRepository.save(cartItem);
     }
 

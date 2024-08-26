@@ -29,6 +29,9 @@ public class CartItem {
     @Column(name = "artistName")
     private String artistName;
 
+    @Column(name = "albumName")
+    private String albumName;
+
     @Column(name = "customDetails")
     private String customDetails;
 

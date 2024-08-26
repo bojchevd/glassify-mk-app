@@ -10,7 +10,9 @@
           <h5 class="card-title">{{product.name}}</h5>
           <p class="card-text">{{product.description}}</p>
           <p class="card-text">{{product.basePrice | currency: 'MKD'}}</p>
-          <a href="#" class="btn btn-primary" (click)="showProductDetails(product.id)">CUSTOMIZE {{product.name}}</a>
+          <button class="btn btn-primary" (click)="showProductDetails(product.id)">
+            CUSTOMIZE {{ product.name }}
+          </button>
         </div>
       </div>
     </div>

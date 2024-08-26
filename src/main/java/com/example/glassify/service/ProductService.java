@@ -28,6 +28,16 @@ public class ProductService {
         }
     }
 
+    public Product getProductByName(String productName) {
+        Optional<Product> product = productRepository.findByName(productName);
+        if (product.isPresent()) {
+            return product.get();
+        } else {
+            throw new RuntimeException("Product not found with name " + productName);
+        }
+    }
+
+
     public Product createProduct(Product product) {
         return productRepository.save(product);
     }

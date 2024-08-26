@@ -1,0 +1,31 @@
+<div class="upload-container mat-elevation-z4" style="padding: 20px; margin: 20px 0;">
+    <!-- Upload Photo Label -->
+    <mat-label class="upload-label">Upload Photo</mat-label>
+  
+    <!-- File Input -->
+    <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload hidden>
+  
+    <!-- File Upload Info -->
+    <div class="file-upload">
+      <span>{{ fileName || "No file uploaded yet." }}</span>
+      <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+        <mat-icon>attach_file</mat-icon>
+      </button>
+      <button *ngIf="fileName" mat-mini-fab color="warn" class="remove-btn" (click)="removeUploadedFile()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  
+    <!-- Image Preview -->
+    <div *ngIf="imageUrl" class="image-preview">
+      <div class="preview-container">
+        <img [src]="imageUrl" alt="Uploaded Photo Preview" class="preview-image">
+      </div>
+    </div>
+  
+    <!-- Upload Progress Bar -->
+    <div class="progress" *ngIf="uploadInProgress">
+      <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+    </div>
+  </div>
+  

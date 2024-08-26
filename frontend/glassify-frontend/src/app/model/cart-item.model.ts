@@ -1,10 +1,11 @@
-export class CartItem {
-    id: number = 0;
-    productId: number = 0;
-    quantity: number = 1;
-    songName: string = "";
-    artistName: string = "";
-    customDetails: string = "";
-    photoUrl: string = "";
-    frameColor: string = "";
-}
+export interface CartItem {
+    id : string,
+    productName: string;
+    songName: string;
+    artistName: string;
+    customDetails: string;
+    albumName: string;
+    frameColor: string;
+    photoUrl: string;
+    quantity: number;
+  }

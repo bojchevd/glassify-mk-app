@@ -13,6 +13,13 @@ import { ProductViewDetailsComponent } from './product-view-details/product-view
 import { SharedModule } from './shared/shared.module';
 import { ContactComponent } from './contact/contact.component';
 import { LayoutModule } from './layout/layout.module';
+import { MatDialogModule } from '@angular/material/dialog'; // Import MatDialogModule
+import { MatButtonModule } from '@angular/material/button'; // Import MatButtonModule
+import { ConfirmationDialogComponent } from './shared/confirmation-dialog/confirmation-dialog.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FileUploadComponent } from './order/file-upload/file-upload.component';
+import { FileUploadService } from './order/file-upload.service';
 
 
 
@@ -21,7 +28,9 @@ import { LayoutModule } from './layout/layout.module';
   declarations: [
     AppComponent,
     ProductViewDetailsComponent,
-    ContactComponent
+    ContactComponent,
+    ConfirmationDialogComponent,
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,
@@ -32,9 +41,15 @@ import { LayoutModule } from './layout/layout.module';
     BrowserAnimationsModule,
     SharedModule,
     ProductModule,
-    LayoutModule
+    LayoutModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatProgressBarModule,
+    MatSnackBarModule
   ],
-  providers: [],
+  providers: [
+    FileUploadService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

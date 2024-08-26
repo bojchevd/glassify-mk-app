@@ -8,27 +8,27 @@ import { Product } from '../model/product';
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = environment.springUrl; 
+  private apiUrl = environment.springUrl + "/product"; 
   
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.apiUrl}/product/all`);
+    return this.http.get<Product[]>(`${this.apiUrl}/all`);
   }
 
   getProductDetailsById(id: number): Observable<Product> {
-    return this.http.get<Product>(`${this.apiUrl}/product/${id}`);
+    return this.http.get<Product>(`${this.apiUrl}/${id}`);
   }
 
   createProduct(product: Product): Observable<Product> {
-    return this.http.post<Product>(`${this.apiUrl}/product/create`, product);
+    return this.http.post<Product>(`${this.apiUrl}/create`, product);
   }
 
   updateProduct(id: number, product: Product): Observable<Product> {
-    return this.http.put<Product>(`${this.apiUrl}/product/update/${id}`, product);
+    return this.http.put<Product>(`${this.apiUrl}/update/${id}`, product);
   }
 
   deleteProduct(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/product/delete/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/delete/${id}`);
   }
 }
