@@ -7,6 +7,6 @@ import { LayoutModule } from '../layout/layout.module';
   templateUrl: './product-page.component.html',
   standalone: true,
   imports: [ProductModule, 
-  LayoutModule]  // Import standalone components directly
+  LayoutModule]  
 })
 export class ProductPageComponent { }

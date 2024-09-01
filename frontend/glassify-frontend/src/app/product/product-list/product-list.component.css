@@ -7,3 +7,24 @@ grid {
 .grid>div {
     padding: 1rem;
 }
+
+.btn-primary {
+    background-color: #2b3232;
+    color: white !important;
+    border-color: #2b3232;
+  }
+
+  .card {
+    background-color: #cfebeb;
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    color: #1edada;
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+  }

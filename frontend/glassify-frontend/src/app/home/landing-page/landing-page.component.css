@@ -1,15 +1,53 @@
-.hero {
-  background-image: url('/assets/hero-bg.jpg');
-  background-size: cover;
+body {
+  font-family: 'RubikMonoOne', sans-serif;
 }
 
-  
-  .product-recommendations {
-    padding: 50px 20px;
-  }
-  
-  .product-recommendations h2 {
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  
+.hero-section {
+  background: linear-gradient(to bottom, #cfebeb, #ffffff);
+  color: #2b3232;
+  height: 70vh; 
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  text-align: center;
+  font-family: 'RubikMonoOne', sans-serif;
+}
+
+.hero-content {
+  padding-top: 70px;
+  margin-top: 3rem;
+  max-width: 800px;
+}
+
+.hero-text h1 {
+  font-size: 3rem; 
+  margin: 0;
+}
+
+.hero-text p {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.btn-primary {
+  background-color: #2b3232;
+  color: white !important;
+  border-color: #2b3232;
+}
+
+.btn-primary:hover {
+  color: #1edada;
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.product-list h2 {
+  text-align: center;
+  padding-top: 70px;
+  padding-bottom: 2%;
+}

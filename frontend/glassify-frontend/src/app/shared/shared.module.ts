@@ -9,6 +9,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgFor } from '@angular/common';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -21,7 +24,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatToolbarModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgFor,
+    CarouselModule,
+    RouterModule
   ],
   exports: [
     CommonModule,
@@ -33,7 +39,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatToolbarModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgFor,
+    CarouselModule,
+    RouterModule
   ]
 })
 export class SharedModule { }

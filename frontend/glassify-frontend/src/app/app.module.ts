@@ -48,7 +48,7 @@ import { FileUploadService } from './order/file-upload.service';
     MatSnackBarModule
   ],
   providers: [
-    FileUploadService
+    
   ],
   bootstrap: [AppComponent]
 })

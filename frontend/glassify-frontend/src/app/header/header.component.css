@@ -1,5 +1,30 @@
-/* Custom pastel color classes */
 .bg-custom {
-  background-color: #a2d2ff; /* Pastel Blue */
+  background-color: #2b3232;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 1rem;
+  color:white; 
+}
+
+.navbar-logo {
+  width: 110px; 
+  height: auto; 
+  margin-right: 10px;
+}
+
+.btn-light {
+  background-color: #2b3232;
+  color: #cfebeb !important;
+  border-color: #2b3232;
+}
+
+.btn-light:hover {
+  background-color: #cfebeb; 
+  color: #2b3232 !important;
+  border-color: #2b3232;
 }
 

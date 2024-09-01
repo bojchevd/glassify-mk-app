@@ -1,15 +1,13 @@
-/* Custom pastel color classes */
+
 .bg-custom {
-  background-color: #a2d2ff; /* Pastel Blue */
+  background-color: #cfebeb;
 }
 
 .text-custom {
-  color: #333; /* Dark text for contrast */
+  color: #333; 
 }
 
-/* Make sure the footer sticks to the bottom */
 .footer {
-  position: fixed;
   bottom: 0;
   width: 100%;
   left: 0;

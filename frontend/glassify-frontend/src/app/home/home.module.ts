@@ -1,17 +1,23 @@
 import { NgModule } from '@angular/core';
 import { ProductModule } from '../product/product.module';
 import { LayoutModule } from '../layout/layout.module';
-import { HomeComponent } from './home.component'; // Example component
 import { SharedModule } from '../shared/shared.module';
+import { HomeComponent } from './home.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { HeroComponent } from './hero/hero.component';
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
+    LandingPageComponent
   ],
   imports: [
     ProductModule,
     LayoutModule,
-    SharedModule
+    SharedModule,
+    HeroComponent
+  ], exports: [
+    LandingPageComponent
   ]
 })
 export class HomeModule { }
