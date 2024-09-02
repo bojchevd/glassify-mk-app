@@ -41,3 +41,25 @@ html, body {
 .footer {
   background-color: #cfebeb;
 }
+
+.mat-button,
+.mat-flat-button,
+.mat-raised-button,
+.mat-stroked-button,
+.btn-primary{
+  background-color: #2b3232 !important;
+  color: white !important;
+  border-color: #2b3232;
+}
+
+/* General disabled button styles */
+.mat-button[disabled],
+.mat-flat-button[disabled],
+.mat-raised-button[disabled],
+.mat-stroked-button[disabled],
+.btn-primary[disabled]{
+    background-color: #cfebeb !important; 
+    color: #2b3232 !important; 
+    cursor: not-allowed;
+}
+

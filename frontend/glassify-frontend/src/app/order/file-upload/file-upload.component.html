@@ -1,13 +1,13 @@
 <div class="upload-container mat-elevation-z4" style="padding: 20px; margin: 20px 0;">
     <!-- Upload Photo Label -->
-    <mat-label class="upload-label">Upload Photo</mat-label>
+    <mat-label class="upload-label">Додади твоја слика</mat-label>
   
     <!-- File Input -->
     <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload hidden>
   
     <!-- File Upload Info -->
     <div class="file-upload">
-      <span>{{ fileName || "No file uploaded yet." }}</span>
+      <span>{{ fileName || "" }}</span>
       <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
         <mat-icon>attach_file</mat-icon>
       </button>

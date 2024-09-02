@@ -3,3 +3,26 @@
     height: auto;
     max-width: 400px;
 }
+
+.btn {
+    background-color: #2b3232;
+    color: white !important;
+    border-color: #2b3232;
+  }
+  
+  .btn:hover {
+    color: #1edada;
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+  }
+
+  .note {
+    font-style: italic;
+    font-size: smaller;
+    color: green;
+  }
+
+  .discount-info {
+    color: #d9534f; /* Bootstrap Danger color for emphasis */
+    margin-top: 10px;
+  }

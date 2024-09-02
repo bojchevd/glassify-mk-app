@@ -24,15 +24,19 @@ export class ContactComponent {
       this.contactService.sendEmail(name, email, message).subscribe(
         response => {
           console.log(response);
-          alert('Email sent successfully!');
+          alert('Message sent successfully!');
         },
         error => {
-          alert('Failed to send email.');
+          alert('Failed to send message.');
         }
       );
     } else {
       alert('Please fill in all required fields.');
     }
   }
+
+//   isSubmitted(): boolean {
+//     return this.onSubmit()
+// }
   
 }

@@ -20,19 +20,13 @@ body {
 }
 
 .hero-text h1 {
-  font-size: 3rem; 
+  font-size: 2rem; 
   margin: 0;
 }
 
 .hero-text p {
   font-size: 1.25rem;
   margin: 0;
-}
-
-.btn-primary {
-  background-color: #2b3232;
-  color: white !important;
-  border-color: #2b3232;
 }
 
 .btn-primary:hover {

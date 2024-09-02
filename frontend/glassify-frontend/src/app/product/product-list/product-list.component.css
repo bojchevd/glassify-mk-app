@@ -16,15 +16,21 @@ grid {
 
   .card {
     background-color: #cfebeb;
+    transform: scale(0.9);
   }
 
   .card:hover {
-    transform: scale(1.05);
+    transform: scale(0.95);
     transition: transform 0.3s ease;
   }
   
   .btn-primary:hover {
     color: #1edada;
-    transform: scale(1.05);
+    transform: scale(0.85);
     transition: transform 0.3s ease;
+  }
+
+  .card-img-top {
+    width: 100%;
+    height: auto;
   }

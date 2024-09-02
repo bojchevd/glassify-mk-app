@@ -58,6 +58,74 @@ export class ProductViewDetailsComponent implements OnInit {
                 });
               }
 
+              areRequiredFieldsFilled(): boolean {
+                const { productName, songName, artistName, albumName, quantity } = this.cartItem;
+
+                const isProductValid = !!productName.trim();
+                const isQuantityValid = quantity > 0;
+                const isSongNameValid = !!songName.trim();
+                const isArtistNameValid = !!artistName.trim();
+                const isAlbumNameValid = !!albumName.trim();
+
+                if (!isProductValid && !!isQuantityValid) {
+                  return false;
+                }
+
+                switch(this.product.name) {
+                  case 'Glass Plaque' :
+                    return isSongNameValid && isArtistNameValid;
+                  case 'Keychain' :
+                    return isSongNameValid && isArtistNameValid;
+                  case 'Poster' :
+                    return isAlbumNameValid && isArtistNameValid;
+                  case 'Bestie' :
+                    return true;
+                  default : return true;
+                }
+
+              }
+
+              calculatePrice(): number {
+                let basePrice = this.product.basePrice;
+                const quantity = this.cartItem.quantity;
+              
+                switch (this.product.name) {
+                  case 'Keychain':
+                    if (quantity == 2) {
+                      return 399;
+                    } else if (quantity == 3) {
+                      return 549;
+                    } else if (quantity > 3) {
+                      return (basePrice * quantity) * 0.80;
+                    }
+                    break;
+              
+                  case 'Glass Plaque':
+                    if (quantity == 2) {
+                      return 1490;
+                    } else if (quantity == 3) {
+                      return 1999;
+                    } else if (quantity > 3) {
+                      return Math.round((basePrice * quantity) * 0.85);
+                    }
+                    break;
+              
+                  default:
+                    return Math.round(basePrice * quantity);
+                }
+                return basePrice * quantity;
+              }
+
+              isDiscountApplied(): boolean {
+                return this.calculatePrice() < this.product.basePrice * this.cartItem.quantity;
+            }
+
+            getDiscountPercentage(): number {
+              const basePrice = this.product.basePrice * this.cartItem.quantity;
+              const discountedPrice = this.calculatePrice();
+              return Math.round((basePrice - discountedPrice));
+          }
+
               saveOrder(): void {
                 if (!this.cartId) {
                   this.cartService.createCart().subscribe(cartId => {

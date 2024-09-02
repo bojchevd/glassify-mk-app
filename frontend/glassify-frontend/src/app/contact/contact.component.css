@@ -1,7 +1,23 @@
-/* You can add custom styles here if needed */
-mat-card {
-    max-width: 600px;
-    margin: auto;
-    padding: 16px;
-  }
-  
+.full-width {
+  width: 100%;
+}
+
+.container {
+  padding: 0 15px;
+}
+
+.text-info {
+  font-size: 0.9rem;
+}
+
+.text-info a {
+  color: #3e81c5; /* Choose a color that matches your theme */
+  text-decoration: none; /* Remove underline */
+  font-weight: bold; /* Make the text bold */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.text-info a:hover {
+  color: #502a1c; /* Change color on hover */
+  text-decoration: underline; /* Add underline on hover */
+}

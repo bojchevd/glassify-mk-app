@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-6 p-2">
             <h3 class="mt-3 mb-2">ПЕРСОНАЛИЗИРАЈ ЈА НАРАЧКАТА</h3>
-            <h4>Tвој уникатен {{ product.name }} Glassify</h4> 
+            <h4>Tвој уникатен Glassify {{ product.name }}</h4> 
             <p>{{ product.description }}</p>
             <div class="card">
                 <img 
@@ -16,22 +16,28 @@
             <p>ВНЕСИ ГИ ДЕТАЛИТЕ</p>
 
             <div class="row">
-                <div class="col-md-6" *ngIf="product.name !== 'Bestie'">
+                <div class="col-md-6" *ngIf="product.name !== 'Bestie' && product.name !== 'Poster'">
                     <mat-form-field appearance="outline">
-                        <mat-label>Song name</mat-label>
-                        <input matInput placeholder="ex. Perfect" [(ngModel)]="cartItem.songName" [required]="product.name !== 'Poster'">
+                        <mat-label>Име на песна</mat-label>
+                        <input matInput placeholder="ex. Perfect" 
+                        [(ngModel)]="cartItem.songName" 
+                        [required]="product.name !== 'Poster'">
                     </mat-form-field>
                 </div>
                 <div class="col-md-6" *ngIf="product.name !== 'Bestie'">
                     <mat-form-field appearance="outline">
-                        <mat-label>Artist name</mat-label>
-                        <input matInput placeholder="ex. Ed Sheeran" [(ngModel)]="cartItem.artistName">
+                        <mat-label>Име на артист</mat-label>
+                        <input matInput placeholder="ex. Ed Sheeran" 
+                        [(ngModel)]="cartItem.artistName"
+                        [required]="product.name !== 'Bestie'">
                     </mat-form-field>
                 </div>
                 <div class="col-md-6" *ngIf="product.name !== 'Bestie'">
                     <mat-form-field appearance="outline">
-                        <mat-label>Album Name</mat-label>
-                        <input matInput placeholder="ex. Divide" [(ngModel)]="cartItem.albumName" [required]="product.name !== 'Glass Plaque'">
+                        <mat-label>Име на албум</mat-label>
+                        <input matInput placeholder="ex. Divide" 
+                        [(ngModel)]="cartItem.albumName" 
+                        [required]="product.name !== 'Glass Plaque' && product.name !== 'Keychain'">
                     </mat-form-field>
                 </div>
                 <div class="col-md-12">
@@ -39,25 +45,34 @@
                 </div>
                 <div class="col-md-6">
                     <mat-form-field appearance="outline">
-                        <mat-label>More details</mat-label>
+                        <mat-label>Повеќе детали</mat-label>
                         <textarea matInput placeholder="Enter more details here..." rows="2" [(ngModel)]="cartItem.customDetails"></textarea>
                     </mat-form-field>
                 </div>
                 <div class="col-md-6">
                     <mat-form-field appearance="outline">
-                        <mat-label>Quantity</mat-label>
+                        <mat-label>Количина (парчиња)</mat-label>
                         <input matInput type="number" [(ngModel)]="cartItem.quantity" min="1" value="1">
                     </mat-form-field>
+                <p class="note" *ngIf="product.name == 'Keychain'">Попуст за нарачани 2+ привезоци</p>
                 </div>
                 <div class="col-md-6 d-flex align-items-center">
-                    <p>Price: {{ (product.basePrice * cartItem.quantity) | currency:'MKD':'symbol':'1.2-2' }}</p>
+                    <p>Цена: {{ calculatePrice() | currency:'MKD':'symbol':'1.2-2' }}</p>
+                    <div *ngIf="isDiscountApplied()" class="discount-info">
+                        <mat-icon>discount</mat-icon>
+                        <p>-{{ getDiscountPercentage() | currency:'MKD':'symbol':'1.2-2' }} попуст</p>
+                    </div>
                 </div>
+                
             </div>
             <div class="row">
                 <div class="col-md-3">
-                    <div style="display: flex; justify-content: flex-end;">
-                        <button mat-flat-button color="primary" (click)="saveOrder()">ДОДАДИ</button>
+                    <div style="display: flex; justify-content: flex-start;">
+                        <button mat-flat-button color="primary" (click)="saveOrder()" 
+                        class="btn btn-primary" 
+                        [disabled]="!areRequiredFieldsFilled()">ДОДАДИ</button>
                     </div>
+                    <p *ngIf="!areRequiredFieldsFilled()"class="mt-2 text-danger">Внеси податоци!</p>
                 </div>
             </div>
         </div>
