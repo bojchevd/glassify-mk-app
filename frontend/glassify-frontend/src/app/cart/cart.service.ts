@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { CartItem } from '../model/cart-item.model';
-import { OrderDetails } from '../model/orderDetails.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private apiUrl = environment.springUrl; 
+  private apiUrl = environment.springUrl;
+  private cartId: string | null = null;
 
   constructor(private http: HttpClient) { }
 
@@ -18,8 +19,6 @@ export class CartService {
   }
 
   addItemToCart(cartId: string, item: CartItem): Observable<CartItem> {
-    console.log(cartId)
-    console.log(item)
     return this.http.post<CartItem>(`${this.apiUrl}/cart/${cartId}/add`, item);
   }
 
@@ -33,5 +32,19 @@ export class CartService {
 
   getCartItems(cartId: string): Observable<CartItem[]> {
     return this.http.get<CartItem[]>(`${this.apiUrl}/cart/${cartId}/getAll`);
+  }
+
+  getCartId(): string | null {
+    return this.cartId;
+  }
+
+  setCartId(id: string): void {
+    this.cartId = id;
+  }
+
+  createAndStoreCart(): Observable<string> {
+    return this.createCart().pipe(
+      tap(cartId => this.setCartId(cartId))
+    );
   }
 }

@@ -128,7 +128,7 @@ export class ProductViewDetailsComponent implements OnInit {
 
               saveOrder(): void {
                 if (!this.cartId) {
-                  this.cartService.createCart().subscribe(cartId => {
+                  this.cartService.createAndStoreCart().subscribe(cartId => {
                     this.cartId = cartId;
                     this.cartService.addItemToCart(this.cartId, this.cartItem).subscribe(
                       response => {

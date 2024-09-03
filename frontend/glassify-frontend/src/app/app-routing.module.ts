@@ -4,12 +4,14 @@ import { ProductViewDetailsComponent } from './product-view-details/product-view
 import { LandingPageComponent } from './home/landing-page/landing-page.component';
 import { ContactComponent } from './contact/contact.component';
 import { ProductPageComponent } from './product-page/product-page.component';
+import { CartComponent } from './cart/cart/cart.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'products', component: ProductPageComponent },
   { path: 'productViewDetails/:id', component: ProductViewDetailsComponent },
-  { path: 'contact', component: ContactComponent }
+  { path: 'contact', component: ContactComponent },
+  { path: 'cart', component: CartComponent }
 ];
 
 @NgModule({

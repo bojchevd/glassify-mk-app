@@ -1,1 +1,38 @@
-<p>cart works!</p>
+<app-header></app-header>
+
+<div class="container mt-5 mb-5">
+  <h3 class="mb-4">Вашата Нарачка</h3>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Продукт</th>
+        <th>Количина</th>
+        <th>Цена</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of cartItems">
+        <td>{{ item.productName }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.quantity * calculateProductPrice(item)  }}</td>
+        <td>
+          <button class="btn btn-danger" (click)="removeItem(item.id)">ИЗБРИШИ</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="mt-4">
+    <p>Вкупна Цена: {{ calculateCartPrice()  }}</p>
+    <p>Трошоци за достава: {{ calculateShippingPrice()  }}</p>
+    <p *ngIf="calculateCartPrice() >= 2000" class="text-success">Бесплатна испорака за нарачки над 2000 МКД</p>
+    <p *ngIf="calculateCartPrice() < 2000" class="text-info">Остаток до бесплатна испорака: {{ 2000 - calculateCartPrice()  }}</p>
+  </div>
+
+  <div class="mt-4">
+    <button class="btn btn-primary" (click)="completeCart()">Заврши нарачка</button>
+  </div>
+</div>
+
+<app-footer></app-footer>

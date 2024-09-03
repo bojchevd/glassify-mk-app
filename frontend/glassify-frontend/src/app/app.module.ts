@@ -20,6 +20,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FileUploadComponent } from './order/file-upload/file-upload.component';
 import { FileUploadService } from './order/file-upload.service';
+import { CartModule } from './cart/cart.module';
 
 
 
@@ -45,7 +46,8 @@ import { FileUploadService } from './order/file-upload.service';
     MatDialogModule,
     MatButtonModule,
     MatProgressBarModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    CartModule
   ],
   providers: [
     
