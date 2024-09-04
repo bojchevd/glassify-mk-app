@@ -1,10 +1,12 @@
-package com.example.glassify.model.user;
+package com.example.glassify.model;
 
-import com.example.glassify.model.user.Role;
+import com.example.glassify.model.enums.Role;
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
 @Table(name = "users")
+@Data
 public class User {
 
     @Id
@@ -12,14 +14,21 @@ public class User {
     private Long id;
     @Column(nullable = false, unique = true)
     private String email;
-    @Column(nullable = false, unique = true)
-    private String firstName;
     @Column(nullable = false)
     private String password;
-    private String shippingAddress;
-    private String phoneNumber;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @Column(nullable = false, unique = true)
+    private String name;
+
+    private String shippingAddress;
+
+    private String city;
+    private String phoneNumber;
+
+    private boolean enabled = true;
 
 }
