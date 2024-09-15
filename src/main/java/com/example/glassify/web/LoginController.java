@@ -31,16 +31,19 @@ public class LoginController {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserDTO userDto) {
-        if (userService.existsByUsername(userDto.getEmail()) || userService.existsByEmail(userDto.getEmail())) { // todo : check
+        if (userService.existsByEmail(userDto.getEmail())) { // todo : check
             return ResponseEntity.badRequest().body("Error: Username or Email is already taken!");
         }
+
         User user = new User();
         user.setEmail(userDto.getEmail());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setRole(Role.ROLE_CUSTOMER);
+
         if (!utilityService.isNullOrEmpty(userDto.getLastName())) {
             user.setName(userDto.getFirstName() + " " + userDto.getLastName());
         }
+
         user.setCity(userDto.getCity());
         user.setShippingAddress(userDto.getShippingAddress());
         user.setPhoneNumber(userDto.getPhoneNumber());
@@ -50,12 +53,12 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestParam String usernameOrEmail, @RequestParam String password) {
-        Optional<User> userOpt = userService.findByEmailOrUsername(usernameOrEmail);
+    public ResponseEntity<?> loginUser(@RequestParam String email, @RequestParam String password) {
+        Optional<User> userOpt = userService.findByEmail(email);
         if (userOpt.isPresent()) {
             User user = userOpt.get();
             if (passwordEncoder.matches(password, user.getPassword())) {
-                String token = jwtUtil.generateToken(usernameOrEmail);
+                String token = jwtUtil.generateToken(email);
                 return ResponseEntity.ok(token);
             } else {
                 return ResponseEntity.badRequest().body("Error: Invalid credentials");
@@ -65,8 +68,9 @@ public class LoginController {
     }
 
     @GetMapping("/role")
-    public ResponseEntity<?> getUserRole(@RequestParam String username) {
-        Optional<User> userOpt = userService.findByUsername(username);
+    public ResponseEntity<?> getUserRole(@RequestParam String email) {
+        Optional<User> userOpt = userService.findByEmail(email);
+
         if (userOpt.isPresent()) {
             Role role = userOpt.get().getRole();
             return ResponseEntity.ok(role);

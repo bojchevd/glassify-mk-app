@@ -1,11 +1,23 @@
-<mat-toolbar class="bg-custom d-flex justify-content-between align-items-center">
-  <a [routerLink]="'/'" class="navbar-brand">
+<mat-toolbar class="bg-custom">
+
+  <button mat-icon-button [matMenuTriggerFor]="mobileMenu" class="d-lg-none menu-button">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-icon *ngIf="!mobileMenuOpen" class="cart-button d-lg-none" [routerLink]="['/cart']">shopping_cart</mat-icon>
+
+  <a [routerLink]="'/'" class="navbar-brand centered-logo">
     <img src="assets/glassify-logo.svg" alt="Glassify Logo" class="navbar-logo">
   </a>
-  <div class="text-light">
-    <button mat-button [routerLink]="['/']" class="btn btn-light">Home</button>
+
+  <div class="nav-buttons d-none d-lg-flex">
     <button mat-button [routerLink]="['/products']" class="btn btn-light">Products</button>
     <button mat-button [routerLink]="['/contact']" class="btn btn-light">Contact</button>
-    <button mat-button [routerLink]="['/cart']" class="btn btn-light "><mat-icon>shopping_cart</mat-icon></button>
+    <button mat-button [routerLink]="['/cart']" class="btn btn-light"><mat-icon>shopping_cart</mat-icon></button>
   </div>
+
+  <mat-menu #mobileMenu="matMenu" class="mobile-menu">
+    <button mat-menu-item [routerLink]="'/products'">Products</button>
+    <button mat-menu-item [routerLink]="'/contact'">Contact</button>
+  </mat-menu>
+
 </mat-toolbar>

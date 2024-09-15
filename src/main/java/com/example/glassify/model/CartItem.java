@@ -1,5 +1,6 @@
 package com.example.glassify.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,6 +15,7 @@ public class CartItem {
 
     @ManyToOne
     @JoinColumn(name = "cartId", nullable = false)
+    @JsonBackReference
     private Cart cart;
 
     @ManyToOne
@@ -40,4 +42,22 @@ public class CartItem {
 
     @Column(name = "frameColor")
     private String frameColor;
+
+    @Column(name = "price")
+    private Integer price;
+
+    @Override
+    public String toString() {
+        return "CartItem{" +
+                "id=" + id +
+                ", product=" + product +
+                ", quantity=" + quantity +
+                ", songName='" + songName + '\'' +
+                ", artistName='" + artistName + '\'' +
+                ", albumName='" + albumName + '\'' +
+                ", customDetails='" + customDetails + '\'' +
+                ", photoUrl='" + photoUrl + '\'' +
+                ", frameColor='" + frameColor + '\'' +
+                '}';
+    }
 }

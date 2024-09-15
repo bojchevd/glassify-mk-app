@@ -8,4 +8,5 @@ export interface CartItem {
     frameColor: string;
     photoUrl: string;
     quantity: number;
+    price: number;
   }

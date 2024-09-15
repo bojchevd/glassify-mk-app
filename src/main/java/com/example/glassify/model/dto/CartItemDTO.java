@@ -16,4 +16,5 @@ public class CartItemDTO {
     private String frameColor;
     private String photoUrl;
     private Integer quantity;
+    private Integer price;
 }

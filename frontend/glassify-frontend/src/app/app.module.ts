@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { OrderModule } from './order/order.module';
 import { HttpClientModule } from '@angular/common/http'
 
 import { AppComponent } from './app.component';
@@ -21,7 +20,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FileUploadComponent } from './order/file-upload/file-upload.component';
 import { FileUploadService } from './order/file-upload.service';
 import { CartModule } from './cart/cart.module';
-
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { OrderModule } from './order/order.module';
 
 
 
@@ -47,7 +49,10 @@ import { CartModule } from './cart/cart.module';
     MatButtonModule,
     MatProgressBarModule,
     MatSnackBarModule,
-    CartModule
+    CartModule,
+    MatMenuModule,
+    MatPaginator,
+    MatSort
   ],
   providers: [
     

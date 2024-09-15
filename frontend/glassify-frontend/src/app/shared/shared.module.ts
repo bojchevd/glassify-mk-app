@@ -12,6 +12,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgFor } from '@angular/common';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { RouterModule } from '@angular/router';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+
 
 @NgModule({
   imports: [
@@ -27,7 +31,10 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     NgFor,
     CarouselModule,
-    RouterModule
+    RouterModule,
+    MatMenuModule,
+    MatPaginator,
+    MatSort
   ],
   exports: [
     CommonModule,
@@ -42,7 +49,10 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     NgFor,
     CarouselModule,
-    RouterModule
+    RouterModule,
+    MatMenuModule,
+    MatPaginator,
+    MatSort
   ]
 })
 export class SharedModule { }

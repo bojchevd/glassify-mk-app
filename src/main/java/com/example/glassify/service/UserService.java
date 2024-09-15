@@ -24,20 +24,8 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public Optional<User> findByUsername(String username) {
-        return userRepository.findUserByUsername(username);
-    }
-
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
-    }
-
-    public Optional<User> findByEmailOrUsername(String input) {
-        return userRepository.findUserByUsernameOrEmail(input);
-    }
-
-    public boolean existsByUsername(String username) {
-        return userRepository.findUserByUsername(username).isPresent();
     }
 
     public boolean existsByEmail(String email) {

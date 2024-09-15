@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../cart.service';
 import { CartItem } from 'src/app/model/cart-item.model';
 
+
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -21,19 +22,19 @@ export class CartComponent implements OnInit {
   }
 
   loadCartItems(): void {
-    if (this.cartId) {
-      this.cartService.getCartItems(this.cartId).subscribe(items => {
-        this.cartItems = items;
+      this.cartService.getCartItems().subscribe(items => {
+        console.log(items);
+        this.cartItems = items || [];
       });
-    }
+    
   }
 
   calculateProductPrice(item: CartItem): number {
-    return 100; // Placeholder value, replace with actual price calculation
+    return 100; // todo
   }
 
   calculateCartPrice(): number {
-    return this.cartItems.reduce((total, item) => total + (this.calculateProductPrice(item) * item.quantity), 0);
+    return this.cartItems.reduce((total, item) => total + (item.price), 0);
   }
 
   calculateShippingPrice(): number {
@@ -42,14 +43,15 @@ export class CartComponent implements OnInit {
   }
 
   removeItem(itemId: string): void {
-    if (this.cartId) {  // Ensure cartId is not null
-      this.cartService.removeItemFromCart(this.cartId, itemId).subscribe(() => {
-        this.loadCartItems(); // Reload cart items after removing one
+    if (this.cartId) {
+      console.log(itemId)
+      this.cartService.removeItemFromCart(itemId).subscribe(() => {
+        this.loadCartItems();
       });
     }
   }
 
   completeCart(): void {
-    // Navigate to the shipping details page or show a shipping form : TODO
+    
   }
 }

@@ -5,6 +5,8 @@ import { CartComponent } from './cart/cart.component';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { LayoutModule } from '../layout/layout.module';
+import { RouterModule } from '@angular/router';
+import { OrderModule } from '../order/order.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,9 @@ import { LayoutModule } from '../layout/layout.module';
   ],
   imports: [
     CommonModule,
-    LayoutModule
+    LayoutModule,
+    RouterModule,
+    OrderModule
   ],
   providers: [CartService]
 })

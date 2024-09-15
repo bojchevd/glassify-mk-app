@@ -14,7 +14,7 @@
 
       <div class="col-md-6">
         <h2>НАРАЧАЈ ОНЛАЈН!</h2>
-        <p>Шопингот никогаш не бил полесен, од сега можеш да купуваш на нашиот веб сајт!</p>
+        <p >Шопингот никогаш не бил полесен, од сега можеш да купуваш на нашиот веб сајт!</p>
         <button mat-button [routerLink]="['/products']" class="btn btn-primary">ПОГЛЕДНИ ГИ СИТЕ ПРОИЗВОДИ</button>
       </div>
 
@@ -26,9 +26,15 @@
   </div>
 </section>
 
-<section class="product-list">
+<section class="product-list mt-3">
   <h2>ПРЕПОРАЧАНИ ПРОИЗВОДИ</h2>
   <app-product-list></app-product-list>
 </section>
+
+<div class="delivery align-items-center mt-3">
+  <h5 class="text-center text-size-large">БРЗА ИСПОРАКА</h5>
+  <p>Сите пратки се испорачуваат од три до пет работни дена.<br/>
+    Курирската служба ги доставува нарачките на адресата која сте ја внеле при процесот на нарачка.</p>
+</div>
 
 <app-footer></app-footer>

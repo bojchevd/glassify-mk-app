@@ -1,38 +1,57 @@
 <app-header></app-header>
 
 <div class="container mt-5 mb-5">
-  <h3 class="mb-4">Вашата Нарачка</h3>
+  <h3 class="mb-4 text-center">Твоја кошничка</h3>
 
+<div *ngIf="cartItems.length > 0; else emptyCart">
   <table class="table table-striped">
     <thead>
-      <tr>
-        <th>Продукт</th>
-        <th>Количина</th>
-        <th>Цена</th>
-      </tr>
+        <tr>
+            <th>Продукт</th>
+            <th>Изведувач</th>
+            <th>Детали</th>
+            <th>Количина</th>
+            <th>Цена</th>            
+        </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of cartItems">
-        <td>{{ item.productName }}</td>
-        <td>{{ item.quantity }}</td>
-        <td>{{ item.quantity * calculateProductPrice(item)  }}</td>
-        <td>
-          <button class="btn btn-danger" (click)="removeItem(item.id)">ИЗБРИШИ</button>
-        </td>
-      </tr>
+        <tr *ngFor="let item of cartItems">
+            <td>{{ item.productName }}</td>
+            <td>{{ item.artistName }}</td>
+            <td>{{ item.customDetails }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.price }}</td>
+            <td>
+                <button class="btn btn-danger" (click)="removeItem(item.id)">ИЗБРИШИ</button>
+            </td>
+        </tr>
     </tbody>
-  </table>
+</table>
 
-  <div class="mt-4">
-    <p>Вкупна Цена: {{ calculateCartPrice()  }}</p>
-    <p>Трошоци за достава: {{ calculateShippingPrice()  }}</p>
-    <p *ngIf="calculateCartPrice() >= 2000" class="text-success">Бесплатна испорака за нарачки над 2000 МКД</p>
-    <p *ngIf="calculateCartPrice() < 2000" class="text-info">Остаток до бесплатна испорака: {{ 2000 - calculateCartPrice()  }}</p>
-  </div>
+    <div class="mt-4">
+        <p>Вкупна Цена: {{ calculateCartPrice()  }}</p>
+        <p class="text-success">Бесплатна испорака за нарачки над 2000 МКД</p>
+        <p *ngIf="calculateCartPrice() < 2000">Трошоци за достава: {{ calculateShippingPrice()  }}</p>
+        <p *ngIf="calculateCartPrice() < 2000" class="text-info">Остаток до бесплатна испорака: {{ 2000 - calculateCartPrice()  }}</p>
+      </div>
+    
+    </div>
 
-  <div class="mt-4">
-    <button class="btn btn-primary" (click)="completeCart()">Заврши нарачка</button>
-  </div>
+    <app-shipping-form></app-shipping-form>
+
+    <div class="mt-4">
+      <button class="btn btn-primary" (click)="completeCart()">Заврши нарачка</button>
+    </div>
 </div>
+<ng-template #emptyCart>
+    <div class="alert alert-warning text-left" role="alert">
+      Твојата кошничка е празна!
+    </div>
+    <div class="mt-4 text-left">
+        <button mat-button [routerLink]="['/products']" class="btn btn-primary btn-block">ПРОДОЛЖИ СО КУПУВАЊЕ</button>
+      </div>
+  </ng-template>
+
+
 
 <app-footer></app-footer>

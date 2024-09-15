@@ -14,7 +14,6 @@
                 <div class="card-body">
 
             <p>ВНЕСИ ГИ ДЕТАЛИТЕ</p>
-
             <div class="row">
                 <div class="col-md-6" *ngIf="product.name !== 'Bestie' && product.name !== 'Poster'">
                     <mat-form-field appearance="outline">
@@ -54,7 +53,8 @@
                         <mat-label>Количина (парчиња)</mat-label>
                         <input matInput type="number" [(ngModel)]="cartItem.quantity" min="1" value="1">
                     </mat-form-field>
-                <p class="note" *ngIf="product.name == 'Keychain'">Попуст за нарачани 2+ привезоци</p>
+                <p class="note green" *ngIf="product.name == 'Keychain'">Попуст за нарачани 2+ привезоци</p>
+                <p class="note green" *ngIf="product.name == 'Poster'">Попуст за нарачани 2+ постери</p>
                 </div>
                 <div class="col-md-6 d-flex align-items-center">
                     <p>Цена: {{ calculatePrice() | currency:'MKD':'symbol':'1.2-2' }}</p>
@@ -72,9 +72,13 @@
                         class="btn btn-primary" 
                         [disabled]="!areRequiredFieldsFilled()">ДОДАДИ</button>
                     </div>
-                    <p *ngIf="!areRequiredFieldsFilled()"class="mt-2 text-danger">Внеси податоци!</p>
+                    <p *ngIf="!areRequiredFieldsFilled()" class="mt-2 text-danger">Внеси податоци!</p>
                 </div>
             </div>
+            <div *ngIf="cartItem.quantity > 1" class="row align-items-center">
+                <mat-icon class="info-icon col-md-6 m-2">info</mat-icon>
+                <p class="note col-md-6">Додади одделни нарачки во кошничка за производи со различни детали</p>
+              </div>
         </div>
     </div>
 </div>

@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -64,14 +65,35 @@ public class CartController {
         cartItem.setCustomDetails(cartItemDTO.getCustomDetails());
         cartItem.setPhotoUrl(cartItemDTO.getPhotoUrl());
         cartItem.setFrameColor(cartItemDTO.getFrameColor());
+        cartItem.setPrice(cartItemDTO.getPrice());
         return cartItem;
     }
 
     @GetMapping("/{cartId}/getAll")
-    public ResponseEntity<List<CartItem>> getCartItems(@PathVariable("cartId") Long cartId) {
-        List<CartItem> cartItems = cartService.getCartItems(cartId);
-        return ResponseEntity.ok(cartItems);
+    public ResponseEntity<List<CartItemDTO>> getCartItems(@PathVariable("cartId") Long cartId) {
+        Cart cart = cartService.getCartById(cartId);
+        List<CartItemDTO> cartItemDTOList = setCartItemDTOs(cart);
+        return ResponseEntity.ok(cartItemDTOList);
     }
+
+    private static List<CartItemDTO> setCartItemDTOs(Cart cart) {
+        List<CartItemDTO> cartItemDTOList = new ArrayList<>();
+        for (CartItem cartItem : cart.getItems()) {
+            CartItemDTO cartItemDTO = new CartItemDTO();
+            cartItemDTO.setProductName(cartItem.getProduct().getName());
+            cartItemDTO.setSongName(cartItem.getSongName());
+            cartItemDTO.setArtistName(cartItem.getArtistName());
+            cartItemDTO.setCustomDetails(cartItem.getCustomDetails());
+            cartItemDTO.setAlbumName(cartItem.getAlbumName());
+            cartItemDTO.setFrameColor(cartItem.getFrameColor());
+            cartItemDTO.setPhotoUrl(cartItem.getPhotoUrl());
+            cartItemDTO.setQuantity(cartItem.getQuantity());
+            cartItemDTO.setPrice(cartItem.getPrice());
+            cartItemDTOList.add(cartItemDTO);
+        }
+        return cartItemDTOList;
+    }
+
 
     @DeleteMapping("/{cartId}/remove/{itemId}")
     public ResponseEntity<Void> removeItemFromCart(@PathVariable("cartId") Long cartId, @PathVariable("itemId") Long itemId) {
