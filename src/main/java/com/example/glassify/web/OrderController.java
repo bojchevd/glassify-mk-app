@@ -2,6 +2,7 @@ package com.example.glassify.web;
 
 import com.example.glassify.model.Cart;
 import com.example.glassify.model.Order;
+import com.example.glassify.model.ShippingInfo;
 import com.example.glassify.service.CartService;
 import com.example.glassify.service.OrderService;
 import org.slf4j.Logger;
@@ -25,11 +26,10 @@ public class OrderController {
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
     @PostMapping("/submit/{cartId}")
-    public ResponseEntity<?> submitOrder(@PathVariable("cartId") Long cartId) {
+    public ResponseEntity<?> submitOrder(@PathVariable("cartId") Long cartId, @RequestBody ShippingInfo shippingInfo) {
         try {
             Cart cart = cartService.getCartById(cartId);
-
-            Order order = orderService.createOrder(cart);
+            Order order = orderService.createOrder(cart, shippingInfo);
 
             cartService.clearCart(cartId);
             return ResponseEntity.ok(order);

@@ -6,27 +6,35 @@
                 <div class="col-md-6">
                     <mat-form-field appearance="outline">
                         <mat-label>Име и Презиме</mat-label>
-                        <input matInput placeholder="ex. John Doe" [(ngModel)]="shippingDetails.fullName" required>
+                        <input matInput placeholder="ex. Трајче Трајков" [(ngModel)]="shippingDetails.fullName" required>
                     </mat-form-field>
                 </div>
                 <div class="col-md-6">
                     <mat-form-field appearance="outline">
                         <mat-label>Телефонски број</mat-label>
-                        <input matInput type="tel" placeholder="ex. +389 70 123 456" [(ngModel)]="shippingDetails.phoneNumber"
+                        <input matInput type="tel" placeholder="ex. 070 123 456" [(ngModel)]="shippingDetails.phoneNumber"
                             required>
                     </mat-form-field>
                 </div>
                 <div class="col-md-6">
                     <mat-form-field appearance="outline">
                         <mat-label>Адреса за достава</mat-label>
-                        <input matInput placeholder="ex. 123 Main St" [(ngModel)]="shippingDetails.address" required>
+                        <input matInput placeholder="ex. Главна Улица бр. 525" [(ngModel)]="shippingDetails.address" required>
                     </mat-form-field>
                 </div>
                 <div class="col-md-6">
                     <mat-form-field appearance="outline">
-                        <mat-label>Град</mat-label>
-                        <input matInput placeholder="ex. Skopje" [(ngModel)]="shippingDetails.city" required>
-                    </mat-form-field>
+                        <mat-label>Место</mat-label>
+                        <mat-select [formControl]="cityCtrl" required>
+                          <mat-option>
+                            <input matInput placeholder="Search city" [formControl]="cityCtrl">
+                          </mat-option>
+                          <mat-option *ngFor="let city of filteredCities | async" [value]="city">{{ city }}</mat-option>
+                        </mat-select>
+                        <button mat-icon-button matSuffix (click)="clearSearch()">
+                            <mat-icon>clear</mat-icon>
+                          </button>
+                      </mat-form-field>
                 </div>
             </div>
         </div>

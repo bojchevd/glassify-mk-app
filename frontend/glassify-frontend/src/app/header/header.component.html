@@ -12,7 +12,9 @@
   <div class="nav-buttons d-none d-lg-flex">
     <button mat-button [routerLink]="['/products']" class="btn btn-light">Products</button>
     <button mat-button [routerLink]="['/contact']" class="btn btn-light">Contact</button>
-    <button mat-button [routerLink]="['/cart']" class="btn btn-light"><mat-icon>shopping_cart</mat-icon></button>
+    <button mat-button [routerLink]="['/cart']" class="btn btn-light" matBadge="{{ itemCount }}" matBadgeColor="accent" matBadgeOverlap="false">
+      <mat-icon>shopping_cart</mat-icon>
+    </button>
   </div>
 
   <mat-menu #mobileMenu="matMenu" class="mobile-menu">

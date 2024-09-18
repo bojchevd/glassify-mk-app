@@ -4,6 +4,7 @@ import com.example.glassify.model.Cart;
 import com.example.glassify.model.CartItem;
 import com.example.glassify.repository.CartItemRepository;
 import com.example.glassify.repository.CartRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,17 +47,19 @@ public class CartService {
     }
 
     public void removeItemFromCart(Long cartId, Long itemId) {
-        // Find the cart and item
         Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new RuntimeException("Cart not found"));
-        CartItem cartItem = cartItemRepository.findById(itemId).orElseThrow(() -> new RuntimeException("Cart item not found"));
+        CartItem itemToRemove = cart.getItems().stream()
+                .filter(item -> item.getId().equals(itemId))
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException("Item not found in cart"));
 
         // Check if the cart item belongs to the cart
-        if (!cartItem.getCart().equals(cart)) {
+        if (!itemToRemove.getCart().equals(cart)) {
             throw new RuntimeException("Cart item does not belong to the specified cart");
         }
 
-        // Remove the cart item
-        cartItemRepository.delete(cartItem);
+        cart.getItems().remove(itemToRemove);
+        cartItemRepository.delete(itemToRemove);
     }
 
     public void clearCart(Long cartId) {

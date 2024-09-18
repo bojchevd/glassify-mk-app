@@ -7,6 +7,7 @@ import { FooterComponent } from '../footer/footer.component';
 import { LayoutModule } from '../layout/layout.module';
 import { RouterModule } from '@angular/router';
 import { OrderModule } from '../order/order.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { OrderModule } from '../order/order.module';
     CommonModule,
     LayoutModule,
     RouterModule,
-    OrderModule
+    OrderModule,
+    SharedModule
   ],
   providers: [CartService]
 })

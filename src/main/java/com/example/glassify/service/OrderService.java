@@ -16,7 +16,10 @@ public class OrderService {
     @Autowired
     private ProductRepository productRepository;
 
-    public Order createOrder(Cart cart) {
+    @Autowired
+    private EmailService emailService;
+
+    public Order createOrder(Cart cart, ShippingInfo shippingInfo) {
         Order order = new Order();
 
         int totalPrice = 0;
@@ -24,7 +27,6 @@ public class OrderService {
 
             Product product = productRepository.findById(cartItem.getProduct().getId())
                     .orElseThrow(() -> new RuntimeException("Product not found"));
-
             OrderItem orderItem = new OrderItem();
             orderItem.setProduct(product);
             orderItem.setQuantity(cartItem.getQuantity());
@@ -34,15 +36,26 @@ public class OrderService {
             orderItem.setSongName(cartItem.getSongName());
             orderItem.setArtistName(cartItem.getArtistName());
 
-            int itemPrice = product.getBasePrice() * cartItem.getQuantity();
-            totalPrice += itemPrice;
+            orderItem.setOrder(order);
 
+            totalPrice += cartItem.getPrice();
             order.getItems().add(orderItem);
         }
-
         order.setTotalPrice(totalPrice);
+
+        order.setFullName(shippingInfo.getFullName());
+        order.setPhoneNumber(shippingInfo.getPhoneNumber());
+        order.setAddress(shippingInfo.getAddress());
+        order.setCity(shippingInfo.getCity());
+        order.setEmail(shippingInfo.getEmail());
+
         order.setOrderStatus(OrderStatus.NEW);
 
+        String subject = "New Order!";
+        String text = "Total: " + order.getTotalPrice() + "\nFull Name: " + shippingInfo.getFullName();
+        emailService.sendEmail("glassifymk@gmail.com", subject, text);
         return orderRepository.save(order);
+
+
     }
 }

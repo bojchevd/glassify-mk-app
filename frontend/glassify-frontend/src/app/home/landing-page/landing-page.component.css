@@ -41,13 +41,26 @@ img {
 }
 
 .product-list h2 {
+  background: linear-gradient(to bottom, #ffffff, #cfebeb);
   text-align: center;
   padding-top: 70px;
   padding-bottom: 2%;
 }
 
 .delivery {
+  background: linear-gradient(to bottom, #ffffff, #cfebeb);
+  color: #2b3232;
+  height: 70vh; 
+  display: flex;
+  align-items: center; 
+  justify-content: center;
   text-align: center;
+  font-family: 'RubikMonoOne', sans-serif;
+}
+
+.delivery img {
+  max-width: 60%;
+  height: auto;
 }
 
 @media (max-width: 768px) {
@@ -98,11 +111,12 @@ img {
 
   .delivery {
     padding: 1rem; /* Add padding for better spacing on mobile */
-    margin-top: 2rem; /* Add margin-top for separation */
+    margin-top: 1rem; /* Add margin-top for separation */
     text-align: center; /* Center text */
   }
 
-  .delivery h5 {
-    font-size: 1.25rem; /* Adjust font size for mobile */
+  .delivery h2 {
+    font-size: 1.25rem;
+     /* Adjust font size for mobile */
   }
 }

@@ -80,6 +80,7 @@ public class CartController {
         List<CartItemDTO> cartItemDTOList = new ArrayList<>();
         for (CartItem cartItem : cart.getItems()) {
             CartItemDTO cartItemDTO = new CartItemDTO();
+            cartItemDTO.setId(String.valueOf(cartItem.getId()));
             cartItemDTO.setProductName(cartItem.getProduct().getName());
             cartItemDTO.setSongName(cartItem.getSongName());
             cartItemDTO.setArtistName(cartItem.getArtistName());

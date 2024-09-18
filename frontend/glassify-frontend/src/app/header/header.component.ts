@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, ViewChild  } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { CartService } from '../cart/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -11,11 +12,18 @@ export class HeaderComponent implements AfterViewInit {
   @ViewChild('mobileMenu') menuTrigger!: MatMenuTrigger;
 
   mobileMenuOpen = false;
+  itemCount: number = 0;
 
-  constructor() { }
+  constructor(private cartService: CartService) { }
 
   ngAfterViewInit(): void {
+    // Log MatMenuTrigger for debugging purposes
     console.log("MatMenuTrigger:", this.menuTrigger);
+
+    // Subscribe to itemCount$ to update itemCount property
+    this.cartService.itemCount$.subscribe(count => {
+      this.itemCount = count;
+    });
   }
 
   toggleMenu(): void {

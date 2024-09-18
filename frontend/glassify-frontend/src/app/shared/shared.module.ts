@@ -15,6 +15,10 @@ import { RouterModule } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { MatSelectModule } from '@angular/material/select';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatBadgeModule } from '@angular/material/badge';
+
 
 
 @NgModule({
@@ -34,7 +38,10 @@ import { MatSort } from '@angular/material/sort';
     RouterModule,
     MatMenuModule,
     MatPaginator,
-    MatSort
+    MatSort,
+    MatSelectModule,
+    MatAutocompleteModule,
+    MatBadgeModule
   ],
   exports: [
     CommonModule,
@@ -52,7 +59,10 @@ import { MatSort } from '@angular/material/sort';
     RouterModule,
     MatMenuModule,
     MatPaginator,
-    MatSort
+    MatSort,
+    MatSelectModule,
+    MatAutocompleteModule,
+    MatBadgeModule
   ]
 })
 export class SharedModule { }

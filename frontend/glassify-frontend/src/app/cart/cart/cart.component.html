@@ -37,10 +37,75 @@
     
     </div>
 
-    <app-shipping-form></app-shipping-form>
+    <div *ngIf="cartItems.length > 0">
+      <div class="mt-5">
+        <h3 class="mb-4">Внеси ги деталите за достава</h3>
+        <form [formGroup]="shippingDetailsForm">
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>Име и Презиме</mat-label>
+                  <input matInput placeholder="ex. Трајче Трајков" formControlName="fullName" required>
+                  <mat-error *ngIf="shippingDetailsForm.get('fullName')?.hasError('required')">
+                    Задолжително внеси име
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>Телефонски број</mat-label>
+                  <input matInput type="tel" placeholder="ex. 070 123 456" formControlName="phoneNumber" required>
+                  <mat-error *ngIf="shippingDetailsForm.get('phoneNumber')?.hasError('required')">
+                    Задолжително внеси тел. број
+                  </mat-error>
+                  <mat-error *ngIf="shippingDetailsForm.get('phoneNumber')?.hasError('pattern')">
+                    Не е валиден број (9 цифри)
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>Адреса за достава</mat-label>
+                  <input matInput placeholder="ex. Главна Улица бр. 525" formControlName="address" required>
+                  <mat-error *ngIf="shippingDetailsForm.get('address')?.hasError('required')">
+                    Задолжително внеси Адреса
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>Место</mat-label>
+                  <mat-select formControlName="city" required>
+                    <mat-option>
+                      <input matInput placeholder="Search city" [formControl]="cityCtrl">
+                    </mat-option>
+                    <mat-option *ngFor="let city of filteredCities | async" [value]="city">{{ city }}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="shippingDetailsForm.get('city')?.hasError('required')">
+                    Задолжително одбери Место
+                  </mat-error>
+                </mat-form-field>
+                <div class="col-md-6">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" type="email" placeholder="Твој email">
+                    <mat-error *ngIf="shippingDetailsForm.get('email')?.hasError('required')">
+                      Задолжително внеси email
+                    </mat-error>
+                    <mat-error *ngIf="shippingDetailsForm.get('email')?.hasError('email')">
+                      Внеси валидна адреса
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </form>
+          
+    </div>
+    </div>
 
-    <div class="mt-4">
-      <button class="btn btn-primary" (click)="completeCart()">Заврши нарачка</button>
+    <div class="mt-4" *ngIf="cartItems.length > 0">
+      <button class="btn btn-primary" type="submit" [disabled]="!shippingDetailsForm.valid" (click)="completeCart()">Заврши нарачка</button>
     </div>
 </div>
 <ng-template #emptyCart>

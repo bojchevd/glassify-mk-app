@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable,  of} from 'rxjs';
+import { Observable,  of, BehaviorSubject} from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -14,10 +14,21 @@ export class CartService {
   private apiUrl = environment.springUrl;
   private cartIdKey = 'cartId';
 
-  constructor(private http: HttpClient) { }
+  private itemCountSource = new BehaviorSubject<number>(0);
+  itemCount$ = this.itemCountSource.asObservable();
+
+  constructor(private http: HttpClient) { 
+    const initialCount = Number(localStorage.getItem('itemCount')) || 0;
+    this.itemCountSource.next(initialCount);
+  }
 
   getCartId(): string | null {
     return sessionStorage.getItem(this.cartIdKey);
+  }
+
+  private updateItemCount(itemCount: number): void {
+    this.itemCountSource.next(itemCount);
+    localStorage.setItem('itemCount', itemCount.toString());
   }
 
   createCart(): Observable<string> {
@@ -31,6 +42,8 @@ export class CartService {
 
   addItemToCart(item: CartItem): Observable<CartItem> {
     let cartId = this.getCartId();
+    const currentCount = this.itemCountSource.getValue();
+    this.updateItemCount(currentCount + 1);
     if (!cartId) {
       return this.createCart().pipe(
         switchMap(newCartId => {
@@ -40,22 +53,24 @@ export class CartService {
     } else {
       return this.http.post<CartItem>(`${this.apiUrl}/cart/${cartId}/add`, item);
     }
+    
   }
 
   removeItemFromCart(itemId: string): Observable<void> {
     let cartId = this.getCartId();
+    const currentCount = this.itemCountSource.getValue();
+    this.updateItemCount(currentCount - 1);
+    
     if (cartId) {
-      return this.http.delete<void>(`${this.apiUrl}/cart/${cartId}/items/${itemId}`);
+      return this.http.delete<void>(`${this.apiUrl}/cart/${cartId}/remove/${itemId}`);
     } else {
       return of(undefined);
     }
   }
 
-  clearCart(): Observable<void> {
-    let cartId = this.getCartId();
-    if (cartId) {
-    return this.http.delete<void>(`${this.apiUrl}/cart/${cartId}/clear`);
-    } else throw new Error("no cart created");
+  clearCart(): void {
+    window.sessionStorage.clear();
+    console.log(this.getCartId)
   }
 
   getCartItems(): Observable<CartItem[]> {
@@ -65,4 +80,9 @@ export class CartService {
     } else throw new Error("no cart created");
   }
 
-}
+  saveShippingDetails(shippingDetails: any) {
+    let cartId = this.getCartId();
+    return this.http.post<any>(`${this.apiUrl}/order/submit/${cartId}`, shippingDetails)
+  }
+
+  }
