@@ -48,9 +48,11 @@ export class CartService {
       return this.createCart().pipe(
         switchMap(newCartId => {
           return this.http.post<CartItem>(`${this.apiUrl}/cart/${newCartId}/add`, item);
+          
         })
       );
     } else {
+      console.log(item)
       return this.http.post<CartItem>(`${this.apiUrl}/cart/${cartId}/add`, item);
     }
     
@@ -71,6 +73,8 @@ export class CartService {
   clearCart(): void {
     window.sessionStorage.clear();
     console.log(this.getCartId)
+    const currentCount = this.itemCountSource.getValue();
+    this.updateItemCount(0);
   }
 
   getCartItems(): Observable<CartItem[]> {

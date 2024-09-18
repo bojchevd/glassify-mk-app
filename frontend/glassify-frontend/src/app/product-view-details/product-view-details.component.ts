@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../model/product';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OrderDetails } from '../model/orderDetails.model';
 import { ProductService } from '../product/product.service';
 import { OrderService } from '../order/order.service';
@@ -11,6 +11,7 @@ import { FileUploadService } from '../order/file-upload.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CartService } from '../cart/cart.service';
 import { CartItem } from '../model/cart-item.model';
+import { HttpEventType } from '@angular/common/http';
 
 
 @Component({
@@ -21,6 +22,7 @@ import { CartItem } from '../model/cart-item.model';
 export class ProductViewDetailsComponent implements OnInit {
 
   product: Product = new Product;
+  selectedFile: File | null = null;
 
   cartItem: CartItem = {
     id: "",
@@ -38,10 +40,12 @@ export class ProductViewDetailsComponent implements OnInit {
   cartId: string = "";
 
   constructor(private activatedRoute: ActivatedRoute,
+    private fileUploadService: FileUploadService,
               private productService: ProductService,
               private orderService: OrderService,
               private cartService: CartService,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog,
+            private router: Router) { }
 
               ngOnInit(): void {
                 this.activatedRoute.paramMap.subscribe(params => {
@@ -84,6 +88,11 @@ export class ProductViewDetailsComponent implements OnInit {
                   default : return true;
                 }
 
+              }
+
+              handleFileUpload(file: File): void {
+                console.log("file received " + file.name)
+                this.selectedFile = file
               }
 
               calculatePrice(): number {
@@ -148,15 +157,44 @@ export class ProductViewDetailsComponent implements OnInit {
           }
 
           saveOrder(): void {
-            this.cartService.addItemToCart(this.cartItem).subscribe(
-              response => {
-                console.log('Cart item added:', response);
-                this.openConfirmationDialog();
-              },
-              error => {
-                console.error('Error adding item to cart:', error);
-              }
-            );
+            if (this.selectedFile) {
+              const newFileName = this.generateFileName(this.selectedFile);
+              this.fileUploadService.upload(this.selectedFile, newFileName).subscribe(response => {
+                if (response.ok) {
+                  // Successfully uploaded
+                  const fileUrl = response.body?.fileUrl || '';
+                  console.log(fileUrl)
+                  // Set the photoUrl in cartItem
+                  this.cartItem.photoUrl = fileUrl;
+          
+                  // Add item to cart
+                  this.cartService.addItemToCart(this.cartItem).subscribe(
+                    response => {
+                      console.log('Cart item added:', response);
+                      this.openConfirmationDialog();
+                      this.router.navigate(['/products']);
+                    },
+                    error => {
+                      console.error('Error adding item to cart:', error);
+                    }
+                  );
+                }
+              }, error => {
+                console.error('File upload error:', error);
+              });
+            } else {
+              // No file selected, proceed with default photoUrl
+              this.cartService.addItemToCart(this.cartItem).subscribe(
+                response => {
+                  console.log('Cart item added:', response);
+                  this.openConfirmationDialog();
+                  this.router.navigate(['/products']);
+                },
+                error => {
+                  console.error('Error adding item to cart:', error);
+                }
+              );
+            }
           }
           
 
@@ -173,6 +211,12 @@ export class ProductViewDetailsComponent implements OnInit {
                   quantity: 1,
                   price: 0
                 };
+              }
+
+              generateFileName(file: File): string {
+                const now = new Date().toISOString().replace(/[-:.]/g, ''); // Current timestamp
+                const baseName = this.cartItem.songName || this.cartItem.productName; // Use cartItem product name or default
+                return `${baseName}_${now}`;
               }
 
               getImageUrl(imageUrl: string | null): string {

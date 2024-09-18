@@ -22,7 +22,7 @@ public class UtilityController {
         log.info("Received email: " + contactForm.getName() + " said: " + contactForm.getMessage());
         String subject = "New Contact Form Submission";
         String text = "Name: " + contactForm.getName() + "\nEmail: " + contactForm.getEmail() + "\nMessage: " + contactForm.getMessage();
-        emailService.sendEmail("glassifymk@gmail.com", subject, text);
+        emailService.orderNotification("glassifymk@gmail.com", subject, text);
         return 1;
     }
 }

@@ -28,10 +28,8 @@ public class OrderService {
         int totalPrice = 0;
         for (CartItem cartItem : cart.getItems()) {
 
-            Product product = productRepository.findById(cartItem.getProduct().getId())
-                    .orElseThrow(() -> new RuntimeException("Product not found"));
             OrderItem orderItem = new OrderItem();
-            orderItem.setProduct(product);
+            orderItem.setProduct(cartItem.getProduct());
             orderItem.setQuantity(cartItem.getQuantity());
             orderItem.setSubtotal(cartItem.getPrice());
             orderItem.setCustomDetails(cartItem.getCustomDetails());
@@ -57,7 +55,9 @@ public class OrderService {
 
         String subject = "New Order!";
         String text = "Total: " + order.getTotalPrice() + "\nFull Name: " + shippingInfo.getFullName();
-        emailService.sendEmail("glassifymk@gmail.com", subject, text);
+        String confirmationMessage = emailService.generateOrderConfirmationMessage(order);
+        emailService.orderNotification("glassifymk@gmail.com", subject, text);
+        emailService.orderConfirmation("glassifymk@gmail.com", order.getEmail(), confirmationMessage);
         return orderRepository.save(order);
     }
 

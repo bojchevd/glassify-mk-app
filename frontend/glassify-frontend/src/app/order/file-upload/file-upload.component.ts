@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { HttpClient, HttpEventType, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
@@ -11,10 +11,9 @@ import { FileUploadService } from '../file-upload.service';
 })
 export class FileUploadComponent {
   fileName = '';
-  uploadProgress = 0;
-  uploadInProgress = false;
   imageUrl: string | ArrayBuffer | null = null;
-  uploadSubscription?: Subscription;
+
+  @Output() uploadComplete = new EventEmitter<File>();
 
   constructor(private fileUploadService: FileUploadService) {}
 
@@ -30,30 +29,13 @@ export class FileUploadComponent {
       };
       reader.readAsDataURL(file);
 
-      this.uploadInProgress = true;
-      this.uploadSubscription = this.fileUploadService.upload(file).subscribe(event => {
-        if (event.type === HttpEventType.UploadProgress) {
-          // Calculate and update upload progress
-          const total = event.total || 1;
-          this.uploadProgress = Math.round((event.loaded / total) * 100);
-        } else if (event.type === HttpEventType.Response) {
-          // Upload complete, reset upload progress
-          this.uploadInProgress = false;
-          this.uploadProgress = 0;
-          console.log('File upload complete:', event.body);
-        }
-      }, error => {
-        console.error('File upload error:', error);
-        this.uploadInProgress = false;
-        this.uploadProgress = 0;
-      });
+      // Emit the file object
+      this.uploadComplete.emit(file);
     }
   }
 
   removeUploadedFile(): void {
     this.fileName = '';
-    this.uploadProgress = 0;
-    this.uploadInProgress = false;
     this.imageUrl = null;
     console.log('Uploaded file removed.');
     const fileInput = document.querySelector('.file-input') as HTMLInputElement;

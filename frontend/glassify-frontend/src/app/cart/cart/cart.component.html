@@ -88,7 +88,7 @@
                 <div class="col-md-6">
                 <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Email</mat-label>
-                    <input matInput formControlName="email" type="email" placeholder="Твој email">
+                    <input matInput formControlName="email" type="email" placeholder="Твој email" required>
                     <mat-error *ngIf="shippingDetailsForm.get('email')?.hasError('required')">
                       Задолжително внеси email
                     </mat-error>

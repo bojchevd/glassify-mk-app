@@ -33,7 +33,7 @@ public class GenerateOrderReport {
     public void generateDailyInvoices() throws MessagingException {
 
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime yesterday = now.minusDays(3);
+        LocalDateTime yesterday = now.minusDays(1);
 
         List<Order> orderList = orderService.getAllOrdersBetweenDates(yesterday, now);
 

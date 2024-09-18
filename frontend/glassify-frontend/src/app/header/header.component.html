@@ -12,7 +12,10 @@
   <div class="nav-buttons d-none d-lg-flex">
     <button mat-button [routerLink]="['/products']" class="btn btn-light">Products</button>
     <button mat-button [routerLink]="['/contact']" class="btn btn-light">Contact</button>
-    <button mat-button [routerLink]="['/cart']" class="btn btn-light" matBadge="{{ itemCount }}" matBadgeColor="accent" matBadgeOverlap="false">
+    <button mat-button [routerLink]="['/cart']" class="btn btn-light" *ngIf="itemCount < 1">
+      <mat-icon>shopping_cart</mat-icon>
+    </button>
+    <button mat-button [routerLink]="['/cart']" class="btn btn-light" matBadge="{{ itemCount }}" *ngIf="itemCount > 0" matBadgeColor="accent" matBadgeOverlap="false">
       <mat-icon>shopping_cart</mat-icon>
     </button>
   </div>

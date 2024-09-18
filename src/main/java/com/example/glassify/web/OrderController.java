@@ -15,6 +15,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/order")
 public class OrderController {
@@ -44,9 +53,11 @@ public class OrderController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile(@RequestParam("image") MultipartFile file) {
+    public ResponseEntity<Map<String, String>> uploadFile(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No file selected for upload.");
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("message", "No file selected for upload.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
         }
 
         try {
@@ -55,11 +66,26 @@ public class OrderController {
             logger.info("File size: {} bytes", file.getSize());
             logger.info("File content type: {}", file.getContentType());
 
-            // For now, just return a success message
-            return ResponseEntity.ok("File uploaded successfully!");
+            // Define the directory to store the files
+            String uploadDir = "uploads/";
+
+            // Ensure the directory exists
+            File directory = new File(uploadDir);
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            Path filePath = Paths.get(uploadDir + file.getOriginalFilename() + ".jpg");
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+            Map<String, String> response = new HashMap<>();
+            response.put("fileUrl", filePath.toString());
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             logger.error("File upload failed", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("File upload failed: " + e.getMessage());
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("message", "File upload failed");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
 
