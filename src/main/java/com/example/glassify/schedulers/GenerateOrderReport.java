@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -41,12 +42,14 @@ public class GenerateOrderReport {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy_HHmm");
         String sanitizedDate = now.format(formatter);
-        String attachmentName = "orderReport_" + sanitizedDate + ".pdf";
+        String fileName = "orderReport_" + sanitizedDate + ".pdf";
 
-        emailService.sendEmailWithAttachment(attachmentName, pdfContent);
+        emailService.sendEmailWithAttachment(fileName, pdfContent);
 
-        try (FileOutputStream fos = new FileOutputStream(attachmentName)) {
+        String filePath = "reports" + File.separator + fileName;
+        try (FileOutputStream fos = new FileOutputStream(filePath)) {
             fos.write(pdfContent);
+            System.out.println("File saved successfully: " + filePath);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
