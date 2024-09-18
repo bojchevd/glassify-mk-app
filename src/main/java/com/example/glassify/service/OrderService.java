@@ -7,6 +7,9 @@ import com.example.glassify.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Service
 public class OrderService {
 
@@ -30,6 +33,7 @@ public class OrderService {
             OrderItem orderItem = new OrderItem();
             orderItem.setProduct(product);
             orderItem.setQuantity(cartItem.getQuantity());
+            orderItem.setSubtotal(cartItem.getPrice());
             orderItem.setCustomDetails(cartItem.getCustomDetails());
             orderItem.setPhotoUrl(cartItem.getPhotoUrl());
             orderItem.setFrameColor(cartItem.getFrameColor());
@@ -38,7 +42,7 @@ public class OrderService {
 
             orderItem.setOrder(order);
 
-            totalPrice += cartItem.getPrice();
+            totalPrice += orderItem.getSubtotal();
             order.getItems().add(orderItem);
         }
         order.setTotalPrice(totalPrice);
@@ -55,7 +59,9 @@ public class OrderService {
         String text = "Total: " + order.getTotalPrice() + "\nFull Name: " + shippingInfo.getFullName();
         emailService.sendEmail("glassifymk@gmail.com", subject, text);
         return orderRepository.save(order);
+    }
 
-
+    public List<Order> getAllOrdersBetweenDates(LocalDateTime from, LocalDateTime to) {
+        return orderRepository.findAllByCreatedAtBetween(from, to);
     }
 }

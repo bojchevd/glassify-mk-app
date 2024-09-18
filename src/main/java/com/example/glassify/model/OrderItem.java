@@ -25,6 +25,9 @@ public class OrderItem {
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
 
+    @Column(name = "subtotal", nullable = false)
+    private Integer subtotal;
+
     @Column(name = "customDetails")
     private String customDetails;
 

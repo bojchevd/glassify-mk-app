@@ -3,8 +3,10 @@ package com.example.glassify.web;
 import com.example.glassify.model.Cart;
 import com.example.glassify.model.Order;
 import com.example.glassify.model.ShippingInfo;
+import com.example.glassify.schedulers.GenerateOrderReport;
 import com.example.glassify.service.CartService;
 import com.example.glassify.service.OrderService;
+import jakarta.mail.MessagingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class OrderController {
 
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private GenerateOrderReport generateOrderReport;
 
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
@@ -56,5 +61,10 @@ public class OrderController {
             logger.error("File upload failed", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("File upload failed: " + e.getMessage());
         }
+    }
+
+    @GetMapping("/generate")
+    public void generate() throws MessagingException {
+        generateOrderReport.generateDailyInvoices();
     }
 }
