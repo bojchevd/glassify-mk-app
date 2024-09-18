@@ -5,13 +5,16 @@ import { LandingPageComponent } from './home/landing-page/landing-page.component
 import { ContactComponent } from './contact/contact.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { CartComponent } from './cart/cart/cart.component';
+import { OrderViewComponent } from './admin/order-view/order-view.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'products', component: ProductPageComponent },
   { path: 'productViewDetails/:id', component: ProductViewDetailsComponent },
   { path: 'contact', component: ContactComponent },
-  { path: 'cart', component: CartComponent }
+  { path: 'cart', component: CartComponent },
+  { path: 'admin', component: OrderViewComponent}
+  // { path: 'order-detail/:id', component: OrderDetailComponent } // TODO
 ];
 
 @NgModule({

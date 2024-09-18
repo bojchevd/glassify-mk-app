@@ -24,7 +24,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { OrderModule } from './order/order.module';
-
+import { AdminModule } from './admin/admin.module';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material/icon';
 
 
 @NgModule({
@@ -52,11 +54,19 @@ import { OrderModule } from './order/order.module';
     CartModule,
     MatMenuModule,
     MatPaginator,
-    MatSort
+    MatSort,
+    AdminModule
   ],
   providers: [
     
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
+    this.matIconRegistry.addSvgIcon(
+      'instagram',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('assets/instagram.svg')
+    );
+  }
+}

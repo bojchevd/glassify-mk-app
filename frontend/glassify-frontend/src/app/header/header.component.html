@@ -1,5 +1,10 @@
 <mat-toolbar class="bg-custom">
 
+  <!-- Instagram Icon in the top left -->
+  <!-- <a href="https://www.instagram.com/your_instagram_username" target="_blank" class="instagram-icon">
+    <mat-icon svgIcon="instagram"></mat-icon>
+  </a> -->
+
   <button mat-icon-button [matMenuTriggerFor]="mobileMenu" class="d-lg-none menu-button">
     <mat-icon>menu</mat-icon>
   </button>
@@ -10,8 +15,8 @@
   </a>
 
   <div class="nav-buttons d-none d-lg-flex">
-    <button mat-button [routerLink]="['/products']" class="btn btn-light">Products</button>
-    <button mat-button [routerLink]="['/contact']" class="btn btn-light">Contact</button>
+    <button mat-button [routerLink]="['/products']" class="btn btn-light">ПРОИЗВОДИ</button>
+    <button mat-button [routerLink]="['/contact']" class="btn btn-light">КОНТАКТ</button>
     <button mat-button [routerLink]="['/cart']" class="btn btn-light" *ngIf="itemCount < 1">
       <mat-icon>shopping_cart</mat-icon>
     </button>
@@ -21,8 +26,8 @@
   </div>
 
   <mat-menu #mobileMenu="matMenu" class="mobile-menu">
-    <button mat-menu-item [routerLink]="'/products'">Products</button>
-    <button mat-menu-item [routerLink]="'/contact'">Contact</button>
+    <button mat-menu-item [routerLink]="'/products'">ПРОИЗВОДИ</button>
+    <button mat-menu-item [routerLink]="'/contact'">КОНТАКТ</button>
   </mat-menu>
 
 </mat-toolbar>

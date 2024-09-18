@@ -3,8 +3,9 @@ package com.example.glassify.service;
 import com.example.glassify.model.*;
 import com.example.glassify.model.enums.OrderStatus;
 import com.example.glassify.repository.OrderRepository;
-import com.example.glassify.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -17,10 +18,11 @@ public class OrderService {
     private OrderRepository orderRepository;
 
     @Autowired
-    private ProductRepository productRepository;
-
-    @Autowired
     private EmailService emailService;
+
+    public Page<Order> findOrders(Pageable pageable) {
+        return orderRepository.findAll(pageable);
+    }
 
     public Order createOrder(Cart cart, ShippingInfo shippingInfo) {
         Order order = new Order();
@@ -63,5 +65,30 @@ public class OrderService {
 
     public List<Order> getAllOrdersBetweenDates(LocalDateTime from, LocalDateTime to) {
         return orderRepository.findAllByCreatedAtBetween(from, to);
+    }
+
+    public void deleteOrderById(Long orderId) throws Exception {
+        if (orderRepository.existsById(orderId)) {
+            orderRepository.deleteById(orderId);
+        } else {
+            throw new Exception("Order not found with ID: " + orderId);
+        }
+    }
+
+    public void updateOrderStatus(Long orderId, String newStatus) throws Exception {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new Exception("Order not found with ID: " + orderId));
+
+        try {
+            if (newStatus == "SHIPPED") {
+                // TODO : Custom logic ex. notification
+            }
+            order.setOrderStatus(OrderStatus.valueOf(newStatus.toUpperCase()));
+        } catch (IllegalArgumentException e) {
+            throw new Exception("Invalid order status: " + newStatus);
+        }
+
+        // Save the updated order
+        orderRepository.save(order);
     }
 }

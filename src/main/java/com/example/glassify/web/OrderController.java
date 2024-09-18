@@ -3,6 +3,7 @@ package com.example.glassify.web;
 import com.example.glassify.model.Cart;
 import com.example.glassify.model.Order;
 import com.example.glassify.model.ShippingInfo;
+import com.example.glassify.model.dto.OrderListWrapperDTO;
 import com.example.glassify.schedulers.GenerateOrderReport;
 import com.example.glassify.service.CartService;
 import com.example.glassify.service.OrderService;
@@ -10,6 +11,9 @@ import jakarta.mail.MessagingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +42,33 @@ public class OrderController {
     private GenerateOrderReport generateOrderReport;
 
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
+
+    @GetMapping("/get")
+    public ResponseEntity<OrderListWrapperDTO> getOrders(@RequestParam(defaultValue = "0") int offset,
+                                                         @RequestParam(defaultValue = "10") int limit) {
+        Pageable pageable = PageRequest.of(offset/limit, limit);
+        Page<Order> orderPage = orderService.findOrders(pageable);
+
+        OrderListWrapperDTO wrapperDTO = new OrderListWrapperDTO();
+        wrapperDTO.setOrders(orderPage.getContent());
+        wrapperDTO.setTotalCount(orderPage.getTotalElements());
+
+        return ResponseEntity.ok(wrapperDTO);
+    }
+
+    @DeleteMapping("/{orderId}/delete")
+    public ResponseEntity<Void> deleteOrder(@PathVariable Long orderId) throws Exception {
+        orderService.deleteOrderById(orderId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{orderId}/status")
+    public ResponseEntity<Void> updateOrderStatus(@PathVariable Long orderId,
+                                                  @RequestBody Map<String, String> statusRequest) throws Exception {
+        String newStatus = statusRequest.get("status");
+        orderService.updateOrderStatus(orderId, newStatus);
+        return ResponseEntity.ok().build();
+    }
 
     @PostMapping("/submit/{cartId}")
     public ResponseEntity<?> submitOrder(@PathVariable("cartId") Long cartId, @RequestBody ShippingInfo shippingInfo) {

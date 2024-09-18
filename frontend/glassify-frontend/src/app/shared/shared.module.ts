@@ -18,7 +18,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatSelectModule } from '@angular/material/select';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatBadgeModule } from '@angular/material/badge';
-
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -41,7 +42,10 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatSort,
     MatSelectModule,
     MatAutocompleteModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatPaginator,
+    MatTableModule,
+    MatPaginatorModule
   ],
   exports: [
     CommonModule,
@@ -62,7 +66,10 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatSort,
     MatSelectModule,
     MatAutocompleteModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatPaginator,
+    MatTableModule,
+    MatPaginatorModule
   ]
 })
 export class SharedModule { }
