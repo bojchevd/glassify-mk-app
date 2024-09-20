@@ -20,8 +20,11 @@ public class UserService {
     }
 
     public User saveUser(User user){
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
+    }
+
+    public boolean authenticate(String rawPassword, String storedHashedPassword) {
+        return passwordEncoder.matches(rawPassword, storedHashedPassword);
     }
 
     public Optional<User> findByEmail(String email) {

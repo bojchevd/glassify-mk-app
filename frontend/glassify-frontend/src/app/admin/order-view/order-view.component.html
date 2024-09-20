@@ -41,7 +41,7 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> АКЦИИ </th>
         <td mat-cell *matCellDef="let order">
-          <button class="btn mr-2" (click)="viewOrderDetails(order.id)">ДЕТАЛИ</button>
+          <button class="btn mr-2" (click)="viewOrderDetails(order)">ДЕТАЛИ</button>
           <button class="btn btn-danger" (click)="deleteOrder(order.id, $event)">ИЗБРИШИ</button>
         </td>
       </ng-container>

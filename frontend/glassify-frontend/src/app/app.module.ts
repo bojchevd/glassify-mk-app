@@ -27,6 +27,8 @@ import { OrderModule } from './order/order.module';
 import { AdminModule } from './admin/admin.module';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
+import { LoginComponent } from './auth/login/login.component';
+import { OrderDetailComponent } from './admin/order-detail/order-detail.component';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import { MatIconRegistry } from '@angular/material/icon';
     ProductViewDetailsComponent,
     ContactComponent,
     ConfirmationDialogComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    LoginComponent,
+    OrderDetailComponent
   ],
   imports: [
     BrowserModule,

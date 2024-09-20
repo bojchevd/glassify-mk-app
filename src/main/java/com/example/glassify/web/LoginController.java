@@ -1,6 +1,7 @@
 package com.example.glassify.web;
 
 import com.example.glassify.model.User;
+import com.example.glassify.model.dto.AuthResponseDTO;
 import com.example.glassify.model.dto.UserDTO;
 import com.example.glassify.model.enums.Role;
 import com.example.glassify.security.JWTUtil;
@@ -37,29 +38,44 @@ public class LoginController {
 
         User user = new User();
         user.setEmail(userDto.getEmail());
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        user.setRole(Role.ROLE_CUSTOMER);
+        String encodedPassword = passwordEncoder.encode(userDto.getPassword());
+        user.setPassword(encodedPassword);
+        user.setRole(Role.ROLE_ADMIN);
 
         if (!utilityService.isNullOrEmpty(userDto.getLastName())) {
             user.setName(userDto.getFirstName() + " " + userDto.getLastName());
         }
-
-        user.setCity(userDto.getCity());
-        user.setShippingAddress(userDto.getShippingAddress());
-        user.setPhoneNumber(userDto.getPhoneNumber());
+        if (!utilityService.isNullOrEmpty(userDto.getCity())) {
+            user.setCity(userDto.getCity());
+        }
+        if (!utilityService.isNullOrEmpty(userDto.getShippingAddress())) {
+            user.setShippingAddress(userDto.getShippingAddress());
+        }
+        if (!utilityService.isNullOrEmpty(userDto.getPhoneNumber())) {
+            user.setPhoneNumber(userDto.getPhoneNumber());
+        }
 
         userService.saveUser(user);
         return ResponseEntity.ok("User registered successfully!");
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestParam String email, @RequestParam String password) {
-        Optional<User> userOpt = userService.findByEmail(email);
+    public ResponseEntity<?> checkCredentials(@RequestBody UserDTO userDto) {
+        Optional<User> userOpt = userService.findByEmail(userDto.getEmail());
         if (userOpt.isPresent()) {
             User user = userOpt.get();
-            if (passwordEncoder.matches(password, user.getPassword())) {
-                String token = jwtUtil.generateToken(email);
-                return ResponseEntity.ok(token);
+            String rawPassword = userDto.getPassword();
+            String encodedPassword = user.getPassword();
+            boolean isMatch = passwordEncoder.matches(rawPassword, encodedPassword);
+
+            System.out.println("Raw Password: " + rawPassword);
+            System.out.println("Encoded Password: " + encodedPassword);
+            System.out.println("Password Match: " + isMatch);
+            if (isMatch) {
+                String token = jwtUtil.generateToken(user.getEmail());
+                String userRole = String.valueOf(user.getRole());
+                AuthResponseDTO authResponseDTO = new AuthResponseDTO(token, userRole);
+                return ResponseEntity.ok(authResponseDTO);
             } else {
                 return ResponseEntity.badRequest().body("Error: Invalid credentials");
             }

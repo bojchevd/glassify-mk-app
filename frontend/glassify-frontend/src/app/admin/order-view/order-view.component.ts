@@ -75,8 +75,8 @@ export class OrderViewComponent implements OnInit {
     }
   }
 
-  viewOrderDetails(orderId: number) {
-    this.router.navigate(['/order-detail', orderId]); // TODO
+  viewOrderDetails(order: any) {
+    this.router.navigate(['/order-detail', order.id], { state: { order: order } });
   }
 
   openConfirmationDialog(message: string): void {

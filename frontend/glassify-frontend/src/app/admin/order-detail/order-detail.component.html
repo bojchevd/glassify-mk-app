@@ -1,0 +1,44 @@
+<app-header></app-header>
+
+<section class="order-detail">
+    <div class="container mt-5">
+      <h3 class="mb-4">ДЕТАЛИ ЗА НАРАЧКА бр.{{order.id}}</h3>
+      
+      <div class="order-info">
+        <p><strong>Име:</strong> {{ order.fullName }}</p>
+        <p><strong>Статус:</strong> {{ order.orderStatus }}</p>
+        <p><strong>Вкупна цена:</strong> {{ order.totalPrice }} ден.</p>
+        <p><strong>Датум на нарачка:</strong> {{ order.createdAt | date:'short' }}</p>
+      </div>
+  
+      <h4 class="mt-4">ПРОДУКТИ ВО НАРАЧКА</h4>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Продукт</th>
+            <th>Артист</th>
+            <th>Песна</th>
+            <th>Детали</th>
+            <th>Слика</th>
+            <th>Количина</th>
+            <th>Цена на артикал</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let item of order.items">
+            <tr >
+              <td>{{ item.product.name }}</td>
+              <td >{{ item.artistName }}</td>
+              <td >{{ item.songName }}</td>
+              <td>{{ item.customDetails }}</td>
+              <td>
+                {{item.photoUrl}}
+              </td>
+              <td>{{ item.quantity }}</td>
+                <td>{{ item.subtotal }} ден.</td>
+            </tr>
+          </tbody>
+      </table>
+      
+    </div>
+  </section>
+  

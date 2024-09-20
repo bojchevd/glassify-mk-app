@@ -214,8 +214,8 @@ export class ProductViewDetailsComponent implements OnInit {
               }
 
               generateFileName(file: File): string {
-                const now = new Date().toISOString().replace(/[-:.]/g, ''); // Current timestamp
-                const baseName = this.cartItem.songName || this.cartItem.productName; // Use cartItem product name or default
+                const now = new Date().toISOString().replace(/[-:.]/g, '');
+                const baseName = this.cartItem.songName || this.cartItem.albumName || this.cartItem.productName; // Use cartItem product name or default
                 return `${baseName}_${now}`;
               }
 

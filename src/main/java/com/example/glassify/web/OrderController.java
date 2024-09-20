@@ -92,15 +92,9 @@ public class OrderController {
         }
 
         try {
-            // Log file details
-            logger.info("Received file: {}", file.getOriginalFilename());
-            logger.info("File size: {} bytes", file.getSize());
-            logger.info("File content type: {}", file.getContentType());
-
             // Define the directory to store the files
             String uploadDir = "uploads/";
 
-            // Ensure the directory exists
             File directory = new File(uploadDir);
             if (!directory.exists()) {
                 directory.mkdirs();
