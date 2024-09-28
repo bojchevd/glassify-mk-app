@@ -1,0 +1,10 @@
+/* Bold table headers */
+th.mat-header-cell {
+    font-weight: bold;
+  }
+  
+  /* Bold stock quantity */
+  td.mat-cell.stock-quantity {
+    font-weight: bold;
+  }
+  

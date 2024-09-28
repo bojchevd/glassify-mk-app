@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "Inventory")
 @Data
-public class Inventory {
+public class InventoryItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +22,15 @@ public class Inventory {
 
     @Column(name = "updatedAt")
     private LocalDateTime updatedAt;
+
+    @Column(name = "vendor")
+    private String vendor;
+
+    @Column(name = "contactPhoneNumber")
+    private String contactPhoneNumber;
+
+    @Column(name = "contactEmail")
+    private String contactEmail;
 
     @PreUpdate
     protected void onUpdate() {

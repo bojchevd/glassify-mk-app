@@ -1,9 +1,11 @@
 package com.example.glassify.schedulers;
 
 
+import com.example.glassify.model.InventoryItem;
 import com.example.glassify.model.Order;
 //import com.example.glassify.service.InvoiceService;
 import com.example.glassify.service.EmailService;
+import com.example.glassify.service.InventoryService;
 import com.example.glassify.service.InvoiceService;
 import com.example.glassify.service.OrderService;
 import jakarta.mail.MessagingException;
@@ -30,6 +32,10 @@ public class GenerateOrderReport {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private InventoryService inventoryService;
+
     @Scheduled(cron = "0 0 17 * * *")
     public void generateDailyInvoices() throws MessagingException {
 
@@ -44,7 +50,9 @@ public class GenerateOrderReport {
         String sanitizedDate = now.format(formatter);
         String fileName = "orderReport_" + sanitizedDate + ".pdf";
 
-        emailService.sendEmailWithAttachment(fileName, pdfContent);
+        String notificationBody = checkInventoryLevels();
+
+        emailService.sendEmailWithAttachment(fileName, pdfContent, notificationBody);
 
         String filePath = "reports" + File.separator + fileName;
         try (FileOutputStream fos = new FileOutputStream(filePath)) {
@@ -55,5 +63,44 @@ public class GenerateOrderReport {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private String checkInventoryLevels() {
+        StringBuilder notification = new StringBuilder("ПРЕДУПРЕДУВАЊЕ ЗА НИСКА КОЛИЧИНА!\n");
+        boolean low = false;
+        List<InventoryItem> inventoryItems = inventoryService.getAllInventoryItems();
+
+        for (InventoryItem item : inventoryItems) {
+            switch (item.getName()) {
+                case "Стакло":
+                    if (item.getStockQuantity() < 20) {
+                        notification.append("Количината на Стакло е ниска: ").append(item.getStockQuantity()).append("\n");
+                        low = true;
+                    }
+                    break;
+                case "Постолје":
+                    if (item.getStockQuantity() < 30) {
+                        notification.append("Количината на Постолје е ниска: ").append(item.getStockQuantity()).append("\n");
+                        low = true;
+                    }
+                    break;
+                case "Рамка А4":
+                    if (item.getStockQuantity() < 15) {
+                        notification.append("Количината на Рамка А4 е ниска: ").append(item.getStockQuantity()).append("\n");
+                        low = true;
+                    }
+                    break;
+                case "Ќесе за достава":
+                    if (item.getStockQuantity() < 50) {
+                        notification.append("Количината на Ќесе за достава е ниска: ").append(item.getStockQuantity()).append("\n");
+                        low = true;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return low ? notification.toString() : "";
     }
 }

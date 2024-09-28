@@ -2,11 +2,13 @@ package com.example.glassify.web;
 
 import com.example.glassify.model.User;
 import com.example.glassify.model.dto.AuthResponseDTO;
-import com.example.glassify.model.dto.UserDTO;
+import com.example.glassify.model.dto.UserAuthDTO;
 import com.example.glassify.model.enums.Role;
+import com.example.glassify.schedulers.GenerateOrderReport;
 import com.example.glassify.security.JWTUtil;
 import com.example.glassify.service.UserService;
 import com.example.glassify.service.UtilityService;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,29 +32,38 @@ public class LoginController {
     @Autowired
     private UtilityService utilityService;
 
+    @Autowired
+    private GenerateOrderReport generateOrderReport;
+
+    @GetMapping("/test")
+    public ResponseEntity<Void> test() throws MessagingException {
+        generateOrderReport.generateDailyInvoices();
+        return ResponseEntity.ofNullable(null);
+    }
+
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody UserDTO userDto) {
-        if (userService.existsByEmail(userDto.getEmail())) { // todo : check
+    public ResponseEntity<?> registerUser(@RequestBody UserAuthDTO userAuthDto) {
+        if (userService.existsByEmail(userAuthDto.getEmail())) { // todo : check
             return ResponseEntity.badRequest().body("Error: Username or Email is already taken!");
         }
 
         User user = new User();
-        user.setEmail(userDto.getEmail());
-        String encodedPassword = passwordEncoder.encode(userDto.getPassword());
+        user.setEmail(userAuthDto.getEmail());
+        String encodedPassword = passwordEncoder.encode(userAuthDto.getPassword());
         user.setPassword(encodedPassword);
         user.setRole(Role.ROLE_ADMIN);
 
-        if (!utilityService.isNullOrEmpty(userDto.getLastName())) {
-            user.setName(userDto.getFirstName() + " " + userDto.getLastName());
+        if (!utilityService.isNullOrEmpty(userAuthDto.getLastName())) {
+            user.setName(userAuthDto.getFirstName() + " " + userAuthDto.getLastName());
         }
-        if (!utilityService.isNullOrEmpty(userDto.getCity())) {
-            user.setCity(userDto.getCity());
+        if (!utilityService.isNullOrEmpty(userAuthDto.getCity())) {
+            user.setCity(userAuthDto.getCity());
         }
-        if (!utilityService.isNullOrEmpty(userDto.getShippingAddress())) {
-            user.setShippingAddress(userDto.getShippingAddress());
+        if (!utilityService.isNullOrEmpty(userAuthDto.getShippingAddress())) {
+            user.setShippingAddress(userAuthDto.getShippingAddress());
         }
-        if (!utilityService.isNullOrEmpty(userDto.getPhoneNumber())) {
-            user.setPhoneNumber(userDto.getPhoneNumber());
+        if (!utilityService.isNullOrEmpty(userAuthDto.getPhoneNumber())) {
+            user.setPhoneNumber(userAuthDto.getPhoneNumber());
         }
 
         userService.saveUser(user);
@@ -60,11 +71,11 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> checkCredentials(@RequestBody UserDTO userDto) {
-        Optional<User> userOpt = userService.findByEmail(userDto.getEmail());
+    public ResponseEntity<?> checkCredentials(@RequestBody UserAuthDTO userAuthDto) {
+        Optional<User> userOpt = userService.findByEmail(userAuthDto.getEmail());
         if (userOpt.isPresent()) {
             User user = userOpt.get();
-            String rawPassword = userDto.getPassword();
+            String rawPassword = userAuthDto.getPassword();
             String encodedPassword = user.getPassword();
             boolean isMatch = passwordEncoder.matches(rawPassword, encodedPassword);
 

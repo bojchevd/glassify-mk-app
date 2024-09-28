@@ -22,7 +22,9 @@ export class LoginComponent {
         localStorage.setItem('userRole', role);  
         if (role === "ROLE_ADMIN") {
           this.router.navigate(['/admin']);
-        }
+        } else {
+          this.router.navigate(['/products']);
+      }
       }, error: (err) => {
         console.log("Login failed", err)
         this.router.navigate(['/login']);

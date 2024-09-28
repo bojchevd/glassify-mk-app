@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,6 +17,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     public UserService(PasswordEncoder passwordEncoder) {
+
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -28,10 +30,16 @@ public class UserService {
     }
 
     public Optional<User> findByEmail(String email) {
+
         return userRepository.findByEmail(email);
     }
 
     public boolean existsByEmail(String email) {
         return userRepository.findByEmail(email).isPresent();
+    }
+
+
+    public List<User> findAllUsers() {
+        return userRepository.findAll();
     }
 }

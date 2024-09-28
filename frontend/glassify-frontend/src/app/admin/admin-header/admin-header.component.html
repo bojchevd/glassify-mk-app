@@ -1,0 +1,24 @@
+<mat-toolbar class="bg-custom">
+
+    <button mat-icon-button [matMenuTriggerFor]="mobileMenu" class="d-lg-none menu-button">
+      <mat-icon>menu</mat-icon>
+    </button>
+  
+    <a [routerLink]="'/'" class="navbar-brand centered-logo">
+      <img src="assets/glassify-logo.svg" alt="Glassify Logo" class="navbar-logo">
+    </a>
+  
+    <div class="nav-buttons d-none d-lg-flex">
+      <button mat-button [routerLink]="['/admin']" class="btn btn-light">НАРАЧКИ</button>
+      <button mat-button [routerLink]="'/admin/inventory'" class="btn btn-light">МАГАЦИН</button>
+      <button mat-button [routerLink]="'/admin/users'" class="btn btn-light">КОРИСНИЦИ</button>
+    </div>
+  
+    <mat-menu #mobileMenu="matMenu" class="mobile-menu">
+      <button mat-menu-item [routerLink]="['/admin']">НАРАЧКИ</button>
+      <button mat-menu-item [routerLink]="'/admin/inventory'">МАГАЦИН</button>
+      <button mat-menu-item [routerLink]="'/admin/users'">КОРИСНИЦИ</button>
+    </mat-menu>
+  
+  </mat-toolbar>
+  

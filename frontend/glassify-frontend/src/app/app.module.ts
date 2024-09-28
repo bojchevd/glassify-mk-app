@@ -29,6 +29,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 import { LoginComponent } from './auth/login/login.component';
 import { OrderDetailComponent } from './admin/order-detail/order-detail.component';
+import { AdminHeaderComponent } from './admin/admin-header/admin-header.component';
+import { AdminGuard } from './auth/admin.guard';
+import { AuthGuard } from './auth/auth.guard';
 
 
 @NgModule({
@@ -62,7 +65,7 @@ import { OrderDetailComponent } from './admin/order-detail/order-detail.componen
     AdminModule
   ],
   providers: [
-    
+    AuthGuard, AdminGuard
   ],
   bootstrap: [AppComponent]
 })

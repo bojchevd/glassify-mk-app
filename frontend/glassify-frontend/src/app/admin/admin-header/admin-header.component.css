@@ -1,0 +1,72 @@
+
+.bg-custom {
+    background-color: #2b3232;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 0 16px;
+  }
+  
+  .centered-logo {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+  }
+  
+  .navbar-logo {
+    width: 150px;
+    height: auto;
+  }
+  
+  .nav-buttons {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+  
+  .menu-button {
+    cursor: pointer;
+    color: #cfebeb;
+  }
+  
+  .btn-light {
+    color: #cfebeb !important; 
+  }
+  
+  .btn-light:hover {
+    color: #2b3232 !important; 
+  }
+  
+  .mat-badge-content {
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+  }
+  
+  
+  @media (max-width: 768px) {
+    .nav-buttons {
+      display: none; 
+    }
+  
+    .menu-button {
+      display: block;
+    }
+  
+    .mobile-menu {
+      background-color: #2b3232;
+    }
+    
+    .mobile-menu .mat-menu-item {
+      color: #cfebeb;
+    }
+    
+    .mobile-menu .mat-menu-item:hover {
+      background-color: #3a4343;
+    }
+    
+  }
+  

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -15,7 +16,9 @@ export class AuthService {
 
   private apiUrl : string = environment.springUrl + '/auth';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private router: Router
+  ) { }
 
   checkCredentials(email: string, password: string): Observable<AuthResponse> {
     const payload = { email, password };
@@ -34,5 +37,6 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('userToken');
     localStorage.removeItem('userRole'); 
+    this.router.navigate(['/login']); // Optional: Redirect to login page after logout
   }
 }

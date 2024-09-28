@@ -1,7 +1,7 @@
-<app-header></app-header>
+<app-admin-header></app-admin-header>
 
 <div class="container mt-5 mb-5">
-  <h2 class="mb-4 text-center">ПРЕГЛЕД НА НАРАЧКИ</h2>
+  <h2 class="mb-4 text-center">НАРАЧКИ</h2>
 
   <div *ngIf="dataSource.data.length > 0; else emptyOrders">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">

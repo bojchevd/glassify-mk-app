@@ -93,14 +93,14 @@ public class EmailService {
     }
 
 
-    public void sendEmailWithAttachment(String attachmentName, byte[] attachment) throws MessagingException {
+    public void sendEmailWithAttachment(String attachmentName, byte[] attachment, String notificationBody) throws MessagingException {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 
         helper.setFrom("glassifymk@gmail.com");
         helper.setTo("glassifymk@gmail.com");
-        helper.setSubject("Order Report");
-        helper.setText("Check attached file");
+        helper.setSubject("Дневен извештај");
+        helper.setText(notificationBody + "Извештајот за нарачки е во attachment");
 
         InputStreamSource attachmentSource = new ByteArrayResource(attachment);
         helper.addAttachment(attachmentName, attachmentSource);
